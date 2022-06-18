@@ -1,0 +1,22 @@
+.circle {
+   @apply w-full h-full rounded-full;
+   @apply bg-green-50 relative;
+}
+
+.circle::before {
+   content: '';
+   display: block;
+   position: absolute;
+   height: 50%;
+   z-index: 1;
+   @apply w-full bottom-0 left-0 ring-[32px] ring-teal-200 rounded-b-full;
+}
+
+.circle::after {
+   content: '';
+   display: block;
+   position: absolute;
+   z-index: 2;
+   @apply w-full h-full top-0 left-0 bg-[#eee] rounded-full;
+   @apply ring-[14px] ring-inset ring-gray-50;
+}
