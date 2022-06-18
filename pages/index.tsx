@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
         <p className={styles.description}>
           Get started by editing{' '}
-          <a href="/nft">Hapebeast NFT!</a>
+          <a href="/digitally">Hapebeast NFT!</a>
         </p>
       </main>
     </div>

@@ -7,3 +7,10 @@ interface FakeFace {
    last_served: string
    source: string
 }
+
+interface _Route {
+   label: string,
+   path?: string,
+   icon?: IconType
+   onClick?: () => void
+}

@@ -1,6 +1,6 @@
 .circle {
    @apply w-full h-full rounded-full bg-green-50 relative;
-   ;
+   @apply ring-[12px] ring-gray-200;
 }
 
 .circle::before {
@@ -9,7 +9,7 @@
    position: absolute;
    height: 50%;
    z-index: 1;
-   @apply w-full bottom-0 left-0 ring-[40px] ring-teal-200 rounded-b-full ring-opacity-50;
+   @apply w-full bottom-0 left-0 ring-[50px] ring-teal-600/30 rounded-b-full animate-pulse;
 }
 
 .circle::after {
@@ -17,5 +17,5 @@
    display: block;
    position: absolute;
    z-index: 2;
-   @apply h-full w-full bottom-0 left-0 ring-[12px] ring-gray-200 rounded-full;
+   @apply h-full w-full bottom-0 left-0 ring-[12px] ring-teal-200/50 rounded-full animate-ping;
 }
