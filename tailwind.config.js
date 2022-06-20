@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'michroma': ['Michroma', 'sans-serif']
+        'michroma': ['Michroma', 'sans-serif'],
+        'changa': ['Changa', 'sans-serif']
       }
     },
   },

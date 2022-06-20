@@ -71,8 +71,8 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                   </header>
             }
             <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto'>
-               <h3 className="flex items-end justify-between mb-2">
-                  <span className='text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-michroma'>RARE</span>
+               <h3 className="flex items-end justify-between mb-2 font-changa">
+                  <span className='text-2xl sm:text-4xl lg:text-5xl text-gray-700'>RARE</span>
                   <span className='sm:text-3xl text-gray-600'>Discover, Collect &amp; Sell</span>
                </h3>
                <div className={styles.nft}></div>
@@ -106,7 +106,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                         ><HiPlay /></Avatar>
                      </div>
                      <p className='text-3xl text-gray-700'>
-                        10K+ Creators
+                        <span className="font-changa">10K+ Creators</span>
                         <span className='text-xs block mt-1'>
                            The first NFT marketplace that enables creators to choose
                         </span>
@@ -158,7 +158,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 function Logo() {
    return (
       <Link href='/'>
-         <a className='text-xl md:text-2xl font-michroma text-gray-700'>Digitally</a>
+         <a className='text-xl md:text-2xl font-changa text-gray-700'>Digitally</a>
       </Link>
    )
 }
