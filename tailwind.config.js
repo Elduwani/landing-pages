@@ -8,7 +8,8 @@ module.exports = {
     extend: {
       fontFamily: {
         'michroma': ['Michroma', 'sans-serif'],
-        'changa': ['Changa', 'sans-serif']
+        'changa': ['Changa', 'sans-serif'],
+        'roboto' : ['Roboto Slab', 'sans-serif']
       }
     },
   },

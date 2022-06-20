@@ -1,0 +1,7 @@
+.main {
+   background-image: url('/baloo/blob.svg');
+   background-position: top right;
+   background-repeat: no-repeat;
+   /* background-size: 900px 900px; */
+   @apply min-h-screen flex flex-col px-6;
+}
