@@ -1,6 +1,11 @@
 /**
  * UI designer: https://www.instagram.com/p/CQ2gb41q_Ky/
  * Design reference: https://www.arshakir.com/uploads/projects/travel-agency-landing-page-freebie.jpg
+ * Hero image: https://depositphotos.com/187701826/stock-photo-beautiful-smiling-girl-bikini-posing.html
+ * Image options: [
+ *    https://depositphotos.com/436142118/stock-photo-full-length-body-size-view.html,
+ *    https://www.shutterstock.com/image-photo/full-length-traveler-tourist-woman-casual-1995126203?irclickid=3lZ1ug2M3xyIWOVwaRzAaxogUkDzGMSGxxW6yg0&irgwc=1&utm_medium=Affiliate&utm_campaign=picjumbo%20%2F%20Viktor%20Hanacek&utm_source=1982588&utm_term=
+ * ]
  */
 
 import Head from 'next/head'
@@ -9,8 +14,9 @@ import { RiPlayFill } from 'react-icons/ri'
 import { HiChevronDown } from 'react-icons/hi'
 import MobileMenu from '@components/MobileMenu'
 import { useScreenSize } from '@lib/hooks'
-import styles from '@styles/baloo.module.css'
+import styles from '@styles/baloo.module.scss'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 const links = ['destinations', 'hotels', 'flights', 'bookings', 'login']
 
@@ -72,15 +78,15 @@ export default function Baloo() {
                         best destinations around the world
                      </p>
                      <p className='text-[100px] leading-[100px] tracking-tighter font-roboto font-bold'>
-                        Travel, <span className='underline'>enjoy,</span> and live a new and full life
+                        Travel, <span className={styles.stroke}>enjoy</span> and live a new and full life
                      </p>
-                     <p className='py-4 text-gray-500 max-w-lg'>
+                     <p className='py-4 text-gray-500 max-w-lg text-lg tracking-wide'>
                         Eius sed sit, unde animi reiciendis, deserunt rem odit delectus dolor exercitationem impedit non mollitia, deleniti veritatis veniam. Unde placeat minima voluptatem.
                      </p>
                      <div className="flex items-center space-x-8">
-                        <button className='h-14 bg-orange-400 text-white rounded-lg px-6 shadow-xl shadow-orange-300/30'>Find out more</button>
+                        <button className='h-14 bg-orange-400 hover:bg-orange-500 text-white rounded-lg px-6 shadow-xl shadow-orange-300/30'>Find out more</button>
                         <div className="flex items-center space-x-2 text-gray-500">
-                           <button className='h-14 w-14 rounded-full bg-red-500 text-white text-3xl grid place-content-center shadow-xl shadow-orange-500/30'>
+                           <button className='h-14 w-14 rounded-full bg-red-500 hover:bg-red-600 text-white text-3xl grid place-content-center shadow-xl shadow-orange-500/30'>
                               <RiPlayFill />
                            </button>
                            <span>Play demo</span>
@@ -98,8 +104,8 @@ export default function Baloo() {
                   </div>
                </div>
 
-               <div className="space-y-24 pb-24">
-                  <div className="wrapper text-center">
+               <div className={styles.services}>
+                  <div className="text-center">
                      <p className='uppercase tracking-wider font-bold text-lg text-gray-600'>category</p>
                      <h2 className='text-5xl capitalize font-roboto font-bold'>We offer best services</h2>
                   </div>
@@ -125,7 +131,12 @@ interface BoxProps {
 function Box(props: BoxProps) {
    return (
       <div className={`relative px-6`}>
-         <div className={`p-6 bg-white cursor-pointer rounded-2xl hover:shadow-2xl hover:shadow-orange-400/40 shadow-orange-400/40 z-10 relative ${props.highlighted && 'shadow-2xl'}`}>
+         <motion.div
+            className={`p-6 bg-white cursor-pointer rounded-2xl hover:shadow-2xl hover:shadow-orange-400/40 shadow-orange-400/40 z-10 relative ${props.highlighted && 'shadow-2xl'}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ y: -15 }}
+         >
             <Image
                width={100}
                height={100}
@@ -134,7 +145,7 @@ function Box(props: BoxProps) {
             />
             <h3 className='text-lg capitalize font-bold text-gray-700 mb-2'>{props.title}</h3>
             <p className='text-gray-600'>{props.text}</p>
-         </div>
+         </motion.div>
          {
             props.highlighted &&
             <span className="absolute w-24 h-24 bottom-0 left-0 z-0 bg-orange-500 rounded-tl-3xl rounded-br-md"></span>

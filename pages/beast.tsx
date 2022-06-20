@@ -11,9 +11,9 @@ import { HiPlay } from 'react-icons/hi'
 import { IoIosArrowRoundForward } from 'react-icons/io'
 import Avatar from '@components/Avatar'
 import MobileMenu from '@components/MobileMenu'
-import {getFakeFaces} from '@lib/index'
+import { getFakeFaces } from '@lib/index'
 import { useScreenSize } from '@lib/hooks'
-import styles from '@styles/nft.module.css'
+import styles from '@styles/beast.module.scss'
 
 const links = ['marketplace', 'resources', 'community', 'FAQ']
 
@@ -111,7 +111,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                            The first NFT marketplace that enables creators to choose
                         </span>
                      </p>
-                     <Link 
+                     <Link
                         href='https://dribbble.com/shots/18335013-NFT-Marketplace-Website'
                         target="_blank"
                         rel="noreferrer"
@@ -158,7 +158,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 function Logo() {
    return (
       <Link href='/'>
-         <a className='text-xl md:text-2xl font-changa text-gray-700'>Digitally</a>
+         <a className='text-xl md:text-2xl font-changa text-gray-700'>Beast</a>
       </Link>
    )
 }

@@ -16,8 +16,8 @@ export default function Home() {
         </h1>
 
         <p className='flex flex-col space-y-2'>
-          <a href="/digitally">Digitally NFT</a>
-          <a href="/jadoo">Baloo</a>
+          <a href="/beast">Beast NFT</a>
+          <a href="/baloo">Baloo</a>
         </p>
       </main>
     </div>

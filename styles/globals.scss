@@ -5,17 +5,17 @@
 @layer {
   .noise-bg {
     position: relative;
+
+    &::after {
+      content: '';
+      background-image: url('/noise.svg');
+      background-size: 800px 800px;
+      @apply h-full w-full grayscale mix-blend-luminosity absolute top-0 left-0 block;
+    }
   }
 
   .noise-bg>* {
     z-index: 1;
-  }
-
-  .noise-bg::after {
-    content: '';
-    background-image: url('/noise.svg');
-    background-size: 800px 800px;
-    @apply h-full w-full grayscale mix-blend-luminosity absolute top-0 left-0 block;
   }
 
   .debug-responsive {
