@@ -1,13 +1,16 @@
-import { motion } from 'framer-motion'
+/**
+ * UI designer: https://dribbble.com/Suzauddoula_Bappy
+ * Design reference: https://dribbble.com/shots/18335013-NFT-Marketplace-Website
+ */
+
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import { FiX } from 'react-icons/fi'
-import { HiMenuAlt3, HiPlay } from 'react-icons/hi'
+import { HiPlay } from 'react-icons/hi'
 import { IoIosArrowRoundForward } from 'react-icons/io'
 import Avatar from '../components/Avatar'
+import MobileMenu from '../components/MobileMenu'
 import { getFakeFaces } from '../lib'
 import { useScreenSize } from '../lib/hooks'
 import styles from '../styles/nft.module.css'
@@ -18,6 +21,15 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
 
+   const additional_menu = (
+      <div className="space-y-8 capitalize mt-auto">
+         <Link href="#">
+            <a className='block'>Sign Up</a>
+         </Link>
+         <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white">Connect Wallet</button>
+      </div>
+   )
+
    return (
       <div className='bg-red-500 h-full overflow-hidden'>
          <Head>
@@ -27,8 +39,17 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
          </Head>
          <main className='noise-bg min-h-screen flex flex-col bg-gradient-to-br from-teal-100 to-blue-200 px-6'>
             {
-               isMobile ? 
-                  <MobileMenu logo={<Logo />} className="mb-12" /> :
+               isMobile ?
+                  <MobileMenu
+                     logo={<Logo />}
+                     className="mb-12"
+                     additional_menu={additional_menu}
+                     links={links}
+                     attribution={[
+                        'Suzauddoula Bappy',
+                        'https://dribbble.com/shots/18335013-NFT-Marketplace-Website'
+                     ]}
+                  /> :
                   <header className='h-20 bg-transparent flex items-center justify-between px-4 lg:px-14 mb-16 sticky top-0'>
                      <Logo />
                      <div className="flex items-center space-x-8 capitalize">
@@ -51,22 +72,15 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
             }
             <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto'>
                <h3 className="flex items-end justify-between mb-2">
-                  <span className='text-2xl lg:text-5xl text-gray-700 font-michroma'>RARE</span>
-                  <span className='lg:text-3xl text-gray-600'>Discover, Collect &amp; Sell</span>
+                  <span className='text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-michroma'>RARE</span>
+                  <span className='sm:text-3xl text-gray-600'>Discover, Collect &amp; Sell</span>
                </h3>
-               <div className="relative w-full h-[150px] sm:h-[250px] lg:h-[320px] lg:mb-12">
-                  <Image
-                     src={'/nft.svg'}
-                     layout='fill'
-                     className='object-contain'
-                     objectPosition='top left'
-                  />
-               </div>
-               <div className="flex flex-col md:grid md:grid-cols-8 flex-1 text-gray-600 font-medium tracking-tight space-y-6 md:space-y-0">
-                  <div className="col-span-2 space-y-6 z-20">
+               <div className={styles.nft}></div>
+               <div className="flex flex-col md:grid grid-cols-8 flex-1 text-gray-600 font-medium tracking-tight space-y-6 md:space-y-0">
+                  <div className="col-span-2 space-y-6 z-20 max-w-sm px-6 sm:px-0 mx-auto text-center md:text-left">
                      <p>The first NFT marketplace that enables creators to choose and embed licenses when they mint NFTs.</p>
                      <Link href='#'>
-                        <a className="flex items-center space-x-8">
+                        <a className="flex justify-center md:justify-start items-center space-y-2 space-x-4 whitespace-nowrap">
                            <span>Discover Now</span>
                            <span className="text-4xl w-14 h-14 rounded-full ring-2 ring-gray-600 text-gray-600 grid place-content-center">
                               <IoIosArrowRoundForward />
@@ -97,6 +111,16 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                            The first NFT marketplace that enables creators to choose
                         </span>
                      </p>
+                     <Link 
+                        href='https://dribbble.com/shots/18335013-NFT-Marketplace-Website'
+                        target="_blank"
+                        rel="noreferrer"
+                     >
+                        <a className='text-3xl text-gray-700' target={"_blank"}>
+                           <p className='text-xs mt-3 text-gray-500'>UI Design by</p>
+                           <p className='text-sm'>Suzauddoula Bappy</p>
+                        </a>
+                     </Link>
                   </div>
                   <div className="relative flex-1 w-full md:flex-none md:h-[70%] md:absolute md:bottom-0">
                      <Image
@@ -131,66 +155,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
    }
 }
 
-interface MenuProps {
-   logo?: React.ReactNode
-   className?: string
-}
-function MobileMenu(props: MenuProps) {
-   const [isOpen, setIsOpen] = useState(false)
-   const closeMenu = () => setIsOpen(false)
-   const openMenu = () => setIsOpen(true)
-
-   const additionalMenu = ["Sign Up"]
-
-   return (
-      <header>
-         <div className={`py-4 flex items-center space-x-2 ${props.className}`}>
-            <HiMenuAlt3 onClick={openMenu} className="text-2xl cursor-pointer" />
-            {props.logo}
-         </div>
-         {
-            isOpen &&
-                  <motion.div
-                  initial={{ opacity: 0, x: -40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -300 }}
-                  className="min-h-screen w-4/5 max-w-sm flex flex-col p-6 bg-gray-50 z-[999] fixed top-0 left-0"
-               >
-                  <div className="relative flex-1 flex flex-col">
-                     <div
-                        onClick={closeMenu}
-                        className={`
-                           bg-gray-100 border text-gray-600 w-8 h-8 grid place-items-center 
-                           rounded-full cursor-pointer absolute right-0 top-0 z-10
-                        `}
-                     ><FiX className="text-lg" /></div>
-                     <div className="flex-1 flex flex-col capitalize p-4">
-                        {
-                           links.map(route =>
-                              <Link href="#" key={route}>
-                                 <a className='block mb-8'>{route}</a>
-                              </Link>
-                           )
-                        }
-                        <div className="space-y-8 capitalize mt-auto">
-                           {
-                              additionalMenu.map(route =>
-                                 <Link href="#" key={route}>
-                                    <a className='block'>{route}</a>
-                                 </Link>
-                              )
-                           }
-                           <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white">Connect Wallet</button>
-                        </div>
-                     </div>
-                  </div>
-               </motion.div>
-         }   
-      </header>
-);
-}
-
-function Logo(){
+function Logo() {
    return (
       <Link href='/'>
          <a className='text-xl md:text-2xl font-michroma text-gray-700'>Digitally</a>
