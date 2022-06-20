@@ -18,6 +18,10 @@
     @apply h-full w-full grayscale mix-blend-luminosity absolute top-0 left-0 block;
   }
 
+  .debug-responsive {
+    @apply sm:bg-red-300 md:bg-green-300 lg:bg-blue-300;
+  }
+
   /* .noise-bg::after {
     content: '';
     display: block;

@@ -1,7 +1,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-export default function useMedia<T>(queries: string[], values: T[], defaultValue: T) {
+export default function useMedia<T>(queries: string[], values: T[] | readonly T[], defaultValue: T) {
     const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList[]>()
     const [value, setValue] = useState(getValue);
 
@@ -42,16 +42,15 @@ export default function useMedia<T>(queries: string[], values: T[], defaultValue
 }
 
 export function useScreenSize() {
-    type _Size = "xl" | "lg" | "md" | "sm"
-    const sizes = ["xl", "lg", "md", "sm"] as _Size[]
+    const sizes = ["xl", "lg", "md", "sm", "xs"] as const
 
-    return useMedia<_Size>(
+    return useMedia<ArrayMember<typeof sizes>>(
         // Media queries
-        ['(min-width: 1024px)', '(min-width: 768px)', '(min-width: 640px)', '(min-width: 360px)'],
+        ['(min-width: 1280px)', '(min-width: 1024px)', '(min-width: 768px)', '(min-width: 640px)', '(min-width: 360px)'],
         // Column counts (relates to above media queries by array index)
         sizes,
         // Default column count
-        "sm"
+        "xs"
     )
 }
 

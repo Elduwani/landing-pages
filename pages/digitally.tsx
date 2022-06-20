@@ -16,7 +16,7 @@ const links = ['marketplace', 'resources', 'community', 'FAQ']
 
 export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
    const screensize = useScreenSize()
-   const isMobile = screensize.match(/sm|md/i)
+   const isMobile = screensize.match(/xs|sm|md/i)
 
    return (
       <div className='bg-red-500 h-full overflow-hidden'>
@@ -27,11 +27,10 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
          </Head>
          <main className='noise-bg min-h-screen flex flex-col bg-gradient-to-br from-teal-100 to-blue-200 px-6'>
             {
-               isMobile ? <MobileMenu /> :
+               isMobile ? 
+                  <MobileMenu logo={<Logo />} className="mb-12" /> :
                   <header className='h-20 bg-transparent flex items-center justify-between px-4 lg:px-14 mb-16 sticky top-0'>
-                     <Link href='/'>
-                        <a className='text-2xl font-michroma text-gray-700'>Digitally</a>
-                     </Link>
+                     <Logo />
                      <div className="flex items-center space-x-8 capitalize">
                         {
                            links.map(link => (
@@ -51,19 +50,20 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                   </header>
             }
             <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto'>
-               <h3 className="flex items-center justify-between mb-3">
+               <h3 className="flex items-end justify-between mb-2">
                   <span className='text-2xl lg:text-5xl text-gray-700 font-michroma'>RARE</span>
-                  <span className='lg:text-3xl'>Discover, Collect &amp; Sell</span>
+                  <span className='lg:text-3xl text-gray-600'>Discover, Collect &amp; Sell</span>
                </h3>
-               <div className="relative h-[80px] md:h-[300px] mb-12 md:mb-24">
+               <div className="relative w-full h-[150px] sm:h-[250px] lg:h-[320px] lg:mb-12">
                   <Image
                      src={'/nft.svg'}
                      layout='fill'
-                     className='object-cover md:object-contain'
+                     className='object-contain'
+                     objectPosition='top left'
                   />
                </div>
                <div className="flex flex-col md:grid md:grid-cols-8 flex-1 text-gray-600 font-medium tracking-tight space-y-6 md:space-y-0">
-                  <div className="ring-inset col-span-2 space-y-6 z-20">
+                  <div className="col-span-2 space-y-6 z-20">
                      <p>The first NFT marketplace that enables creators to choose and embed licenses when they mint NFTs.</p>
                      <Link href='#'>
                         <a className="flex items-center space-x-8">
@@ -74,7 +74,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                         </a>
                      </Link>
                   </div>
-                  <div className="ring-inset col-span-2 col-start-7 px-4 space-y-4 z-20">
+                  <div className="hidden md:block col-span-2 col-start-7 lg:px-8 space-y-4 z-20">
                      <div className="flex mx-2">
                         {
                            avatars.map(av =>
@@ -98,13 +98,14 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                         </span>
                      </p>
                   </div>
-                  <div className="relative flex-1 w-full md:flex-none md:h-[70%] md:absolute md:bottom-0 ring-inset">
+                  <div className="relative flex-1 w-full md:flex-none md:h-[70%] md:absolute md:bottom-0">
                      <Image
                         layout='fill'
                         src={'/hapebeast.png'}
                         className='z-10 object-contain'
+                        objectPosition='bottom center'
                      />
-                     <div className="h-[220px] w-[220px] lg:h-[420px] lg:w-[420px] transform -translate-y-10 md:translate-x-6 mx-auto">
+                     <div className="h-[300px] w-[300px] md:h-[420px] md:w-[420px] transform -translate-y-10 md:translate-x-6 mx-auto">
                         <div className={styles.circle}>
                            <div className={'noise-bg h-full w-full bg-gray-100 rounded-full overflow-hidden z-[1]'}></div>
                         </div>
@@ -130,54 +131,69 @@ export const getServerSideProps: GetServerSideProps = async () => {
    }
 }
 
-function MobileMenu() {
+interface MenuProps {
+   logo?: React.ReactNode
+   className?: string
+}
+function MobileMenu(props: MenuProps) {
    const [isOpen, setIsOpen] = useState(false)
    const closeMenu = () => setIsOpen(false)
    const openMenu = () => setIsOpen(true)
 
    const additionalMenu = ["Sign Up"]
 
-   if (!isOpen) return (
-      <div className='py-4'>
-         <HiMenuAlt3 onClick={openMenu} className="text-3xl cursor-pointer" />
-      </div>
-   )
-
    return (
-      <motion.header
-         initial={{ opacity: 0, x: -40 }}
-         animate={{ opacity: 1, x: 0 }}
-         exit={{ opacity: 0, x: -300 }}
-         className="min-h-screen w-full max-w-sm flex flex-col p-6 bg-gray-50 z-[999] fixed top-0 left-0"
-      >
-         <div className="relative flex-1 flex flex-col">
-            <div
-               onClick={closeMenu}
-               className={`
-                  bg-gray-100 border text-gray-600 w-8 h-8 grid place-items-center 
-                  rounded-full cursor-pointer absolute right-0 top-0 z-10
-               `}
-            ><FiX className="text-lg" /></div>
-            <div className="flex-1 flex flex-col capitalize p-4">
-               {
-                  links.map(route =>
-                     <Link href="#" key={route}>
-                        <a className='block mb-8'>{route}</a>
-                     </Link>
-                  )
-               }
-               <div className="space-y-8 capitalize mt-auto">
-                  {
-                     additionalMenu.map(route =>
-                        <Link href="#" key={route}>
-                           <a className='block'>{route}</a>
-                        </Link>
-                     )
-                  }
-                  <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white">Connect Wallet</button>
-               </div>
-            </div>
+      <header>
+         <div className={`py-4 flex items-center space-x-2 ${props.className}`}>
+            <HiMenuAlt3 onClick={openMenu} className="text-2xl cursor-pointer" />
+            {props.logo}
          </div>
-      </motion.header>
-   );
+         {
+            isOpen &&
+                  <motion.div
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -300 }}
+                  className="min-h-screen w-4/5 max-w-sm flex flex-col p-6 bg-gray-50 z-[999] fixed top-0 left-0"
+               >
+                  <div className="relative flex-1 flex flex-col">
+                     <div
+                        onClick={closeMenu}
+                        className={`
+                           bg-gray-100 border text-gray-600 w-8 h-8 grid place-items-center 
+                           rounded-full cursor-pointer absolute right-0 top-0 z-10
+                        `}
+                     ><FiX className="text-lg" /></div>
+                     <div className="flex-1 flex flex-col capitalize p-4">
+                        {
+                           links.map(route =>
+                              <Link href="#" key={route}>
+                                 <a className='block mb-8'>{route}</a>
+                              </Link>
+                           )
+                        }
+                        <div className="space-y-8 capitalize mt-auto">
+                           {
+                              additionalMenu.map(route =>
+                                 <Link href="#" key={route}>
+                                    <a className='block'>{route}</a>
+                                 </Link>
+                              )
+                           }
+                           <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white">Connect Wallet</button>
+                        </div>
+                     </div>
+                  </div>
+               </motion.div>
+         }   
+      </header>
+);
+}
+
+function Logo(){
+   return (
+      <Link href='/'>
+         <a className='text-xl md:text-2xl font-michroma text-gray-700'>Digitally</a>
+      </Link>
+   )
 }
