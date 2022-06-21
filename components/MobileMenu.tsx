@@ -19,9 +19,12 @@ export default function MobileMenu(props: MenuProps) {
 
    return (
       <header className="z-[999]">
-         <div className={`flex items-center space-x-2 ${props.className}`}>
+         <div className={`lg:hidden flex items-center space-x-2 ${props.className}`}>
             <HiMenuAlt3 onClick={openMenu} className="text-2xl cursor-pointer" />
             {props.logo}
+            {
+               //Add far right items on medium sizes
+            }
          </div>
          {
             isOpen &&

@@ -15,9 +15,10 @@ export default function Home() {
           Inspired pages
         </h1>
 
-        <p className='flex flex-col space-y-2'>
+        <p className='flex space-x-4 items-center mt-8'>
           <a href="/beast">Beast NFT</a>
           <a href="/baloo">Baloo</a>
+          <a href="/quillex">Quillex</a>
         </p>
       </main>
     </div>

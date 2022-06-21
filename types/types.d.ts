@@ -17,3 +17,9 @@ interface _Route {
    icon?: IconType
    onClick?: () => void
 }
+
+interface Attribution {
+   name: string
+   link: `https://${string}`
+   homepage?: `https://${string}`
+}

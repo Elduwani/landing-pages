@@ -18,6 +18,12 @@ import styles from '@styles/baloo.module.scss'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
+const attribution: Attribution = {
+   name: 'Ar Shakir',
+   link: 'https://www.instagram.com/p/CQ2gb41q_Ky/',
+   homepage: 'https://www.arshakir.com/uploads/projects/travel-agency-landing-page-freebie.jpg'
+}
+
 const links = ['destinations', 'hotels', 'flights', 'bookings', 'login']
 
 export default function Baloo() {
@@ -51,11 +57,10 @@ export default function Baloo() {
                      className="mb-8 py-8"
                      additional_menu={additional_menu}
                      links={links}
-                     attribution={['Ar Shakir', 'https://www.instagram.com/p/CQ2gb41q_Ky/']}
                   /> :
                   <header className='w-full max-w-7xl mx-auto h-24 bg-transparent flex items-center justify-between sticky top-0'>
                      <Logo />
-                     <div className="flex items-center space-x-14 capitalize">
+                     <div className="flex items-center space-x-14 capitalize justify-end w-full whitespace-nowrap">
                         {
                            links.map(link => (
                               <Link href='#' key={link}>
@@ -101,13 +106,9 @@ export default function Baloo() {
                      </div>
                      {
                         //attribution
-                        <Link
-                           href='https://www.instagram.com/p/CQ2gb41q_Ky/'
-                           target="_blank"
-                           rel="noreferrer"
-                        >
+                        <Link href={attribution.link} rel="noreferrer">
                            <a className='text-3xl text-gray-700' target={"_blank"}>
-                              <span className='text-xs mt-3 text-gray-400'>UI Design by</span> <span className='text-sm'>Ar Shakir</span>
+                              <span className='text-xs mt-3 text-gray-400'>UI Design by</span> <span className='text-sm'>{attribution.name}</span>
                            </a>
                         </Link>
                      }
@@ -128,7 +129,7 @@ export default function Baloo() {
                      <p className='uppercase tracking-wider font-bold text-lg text-gray-600'>category</p>
                      <h2 className='text-3xl sm:text-5xl capitalize font-roboto font-bold'>We offer best services</h2>
                   </div>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
                      {
                         boxes.map(box => <Box key={box.title} {...box} />)
                      }

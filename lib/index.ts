@@ -25,3 +25,20 @@ export async function getFakeFaces(count: number): Promise<FakeFace[]> {
 
    return arr
 }
+
+export function randomIndices(count: number, ignore?: (n: number) => boolean): number[] {
+   const map = new Map()
+   const result = [1, 2, 3]
+
+   // while (result.length < count) {
+   //    const n = Math.floor(Math.random() * count)
+   //    if (map.has(n) || ignore?.(n)) {
+   //       console.log("Skipping...")
+   //       continue
+   //    }
+   //    map.set(n, true)
+   //    result.push(n)
+   // }
+
+   return result
+}

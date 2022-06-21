@@ -1,0 +1,4 @@
+.headline {
+   @apply font-roboto text-[50px] leading-[50px] capitalize; 
+   @apply md:text-[80px] md:leading-[80px] tracking-tight ;
+}

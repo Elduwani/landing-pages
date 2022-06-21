@@ -1,7 +1,7 @@
 .main {
    position: relative;
    // background-size: auto;
-   @apply min-h-screen flex flex-col px-6;
+   @apply min-h-screen flex flex-col px-6 lg:px-12;
 
    & > *:not(header) {
       z-index: 2;
