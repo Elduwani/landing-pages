@@ -15,6 +15,7 @@ import fs from 'fs'
 import path from 'path'
 import { GetStaticProps } from 'next'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 const attribution: Attribution = {
    name: 'Halo Lab',
@@ -58,7 +59,7 @@ export default function Quillex(props: Props) {
                   /> :
                   <header className='w-full max-w-7xl mx-auto h-24 bg-transparent flex items-center space-x-12 justify-between sticky top-0'>
                      <Logo />
-                     <div className="flex items-center capitalize w-full whitespace-nowrap">
+                     <div className="flex items-center capitalize w-full whitespace-nowrap text-gray-600">
                         {
                            links.map(link => (
                               <Link href='#' key={link}>
@@ -108,10 +109,10 @@ export default function Quillex(props: Props) {
                   </div>
                </div>
 
-               <div className={styles.services}>
-                  <div className="text-center">
-                     <p className='uppercase tracking-wider font-bold text-lg text-gray-600'>category</p>
-                     <h2 className='text-3xl sm:text-5xl capitalize font-roboto font-bold'>We offer best services</h2>
+               <div className={'ring py-4'}>
+                  <h2 className='text-center text-3xl sm:text-5xl capitalize font-roboto'>Unlimited access to 100+ instructors.</h2>
+                  <div className="flex items-center justify-center space-x-4">
+                     <Tabs />
                   </div>
                </div>
 
@@ -132,7 +133,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
    filenames?.forEach(name => {
       const filePath = path.join(directory, name)
-      if (filePath.match(/img-[0-9].jpg/i)) { //KISS!
+      if (filePath.match(/hero-image-[0-9]/i)) { //KISS!
          filesList.push(`/quillex/${name}`)
       }
    })
@@ -151,6 +152,11 @@ interface Box {
 function Boxes(props: Props) {
    const [activeIndex, setActiveIndex] = useState(0)
    const indices = useRef(randomIndices(props.filesList.length))
+   const boxes: Partial<Box>[] = [
+      { count: 100, title: 'cooking course' },
+      { count: 135, title: 'writing' },
+      { count: 72, title: 'business' },
+   ]
 
    const mappedBoxes = boxes.map((b, i) => {
       b.src = props.filesList[indices.current[i]]
@@ -164,26 +170,31 @@ function Boxes(props: Props) {
                const active = activeIndex === i
 
                return (
-                  <div
+                  <motion.div
                      key={box.title}
                      onMouseEnter={() => setActiveIndex(i)}
                      className={`
-                        cursor-pointer rounded-2xl relative bg-gray-300 transition-all overflow-hidden
-                        ${active ? 'flex-[3]' : 'flex-1'}
+                        cursor-pointer rounded-2xl relative bg-gray-300 transition-all 
+                        overflow-hidden transform
+                        ${active ? 'flex-[3] rotate-0' : 'flex-1 -rotate-2'}
                      `}
                   >
-                     <Image
-                        layout='fill'
-                        className='object-cover top-0 left-0'
-                        src={box.src}
-                     />
-                     <div className="relative h-5/6 ring-inset flex flex-col justify-end text-white font-roboto capitalize text-4xl">
+                     {
+                        box.src ?
+                           <Image
+                              layout='fill'
+                              className='object-cover top-0 left-0'
+                              src={box.src}
+                           /> : null
+                     }
+                     <div className="relative h-5/6 ring-inset flex flex-col justify-end text-white font-roboto capitalize text-4xl z-10">
                         {
                            active ? (
                               <motion.div
-                                 initial={{ opacity: 0, y: 25 }}
+                                 key={i}
+                                 initial={{ opacity: 0, y: -25 }}
                                  animate={{ opacity: 1, y: 0 }}
-                                 className={`px-12 flex space-x-4 ${i === 0 && 'pl-24'}`}
+                                 className={`flex space-x-4 justify-between ${i === 0 ? 'pl-24 px-12' : 'px-8'}`}
                               >
                                  <h2 className=''>{box.title}</h2>
                                  <div className="text-xl">
@@ -194,16 +205,18 @@ function Boxes(props: Props) {
                            )
                               : (
                                  <motion.div
+                                    key={i + 1}
                                     initial={{ opacity: 0, x: 25 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    className="bg-purple-800 min-h-[150px] w-4/5 p-4"
+                                    className="bg-purple-800 min-h-[150px] w-4/5 p-6"
                                  >
-                                    <h2 className='transform -rotate-90 origin-top-left translate-y-24'>{box.title}</h2>
+                                    <h2 className='transform -rotate-90 origin-top-left translate-y-16'>{box.title}</h2>
                                  </motion.div>
                               )
                         }
                      </div>
-                  </div>
+                     <span className="absolute bottom-0 left-0 h-3/5 w-full bg-gradient-to-t from-gray-800 to-transparent"></span>
+                  </motion.div>
                )
             })
          }
@@ -221,17 +234,26 @@ function Logo() {
    )
 }
 
-const boxes: Partial<Box>[] = [
-   {
-      count: 100,
-      title: 'cooking course',
-   },
-   {
-      count: 135,
-      title: 'writing',
-   },
-   {
-      count: 72,
-      title: 'business',
-   },
-]
+function Tabs() {
+   const router = useRouter()
+   const categories = ['all-categories', 'entertainment', 'lifestyle', 'writing', 'business', 'food', 'music', 'design', 'more']
+
+   return (
+      <>
+         {
+            categories.map(category => {
+               const active = router.query.category === category
+               return (
+                  <button
+                     onClick={() => router.push(`/quillex?category=${category}`, undefined, { shallow: true })}
+                     className={`
+                        text-gray-700 capitalize p-4 hover:opacity-100
+                        ${active ? 'border-b-4 border-gray-500' : 'opacity-70'}
+                     `}
+                  >{category.replace(/-/gi, " ")}</button>
+               )
+            })
+         }
+      </>
+   )
+}
