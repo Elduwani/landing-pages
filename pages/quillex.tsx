@@ -4,18 +4,18 @@
  */
 
 import MobileMenu from '@components/MobileMenu'
-import { randomIndices } from '@lib/index'
 import { useScreenSize } from '@lib/hooks'
+import { randomIndices } from '@lib/index'
 import styles from '@styles/quillex.module.scss'
+import { motion } from 'framer-motion'
+import fs from 'fs'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useMemo, useRef, useState } from 'react'
-import fs from 'fs'
-import path from 'path'
-import { GetStaticProps } from 'next'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
+import path from 'path'
+import { useRef, useState } from 'react'
 
 const attribution: Attribution = {
    name: 'Halo Lab',
@@ -31,6 +31,13 @@ interface Props {
 export default function Quillex(props: Props) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
+
+   const palette = [
+      'bg-gradient-to-t from-orange-400 to-orange-300',
+      'bg-gradient-to-t from-lime-400 to-lime-300',
+      'bg-gradient-to-t from-gray-400 to-gray-300',
+      'bg-gradient-to-t from-teal-400 to-teal-300',
+   ]
 
    const additional_menu = (
       <div className="space-y-8 capitalize mt-auto">
@@ -77,8 +84,8 @@ export default function Quillex(props: Props) {
                   </header>
             }
 
-            <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto md:px-20 lg:px-0 ring-green-300'>
-               <div className="lg:grid grid-cols-3 min-h-[700px] mb-24">
+            <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto md:px-20 lg:px-0 pt-12 ring-green-300'>
+               <div className="lg:grid grid-cols-3 min-h-[700px] mb-32">
                   <div className="md:pt-12 lg:pt-24">
                      <div className="space-y-2 mb-28">
                         <p className={styles.headline}>watch.</p>
@@ -89,7 +96,7 @@ export default function Quillex(props: Props) {
                         <div className="w-full flex h-28 shadow-2xl shadow-slate-500/40">
                            <input
                               type='text'
-                              className="pl-12 w-full placeholder:text-gray-500 placeholder:text-2xl text-2xl text-gray-700"
+                              className="px-4 pl-12 w-full placeholder:text-gray-500 placeholder:text-2xl text-2xl text-gray-700 focus:outline-none"
                               placeholder='Find Your Passion...'
                            />
                            <button className="w-[30%] text-4xl font-roboto bg-lime-500">Go</button>
@@ -104,15 +111,22 @@ export default function Quillex(props: Props) {
                         }
                      </div>
                   </div>
-                  <div className="col-span-2 flex space-x-10">
+                  <div className="col-span-2 flex space-x-8">
                      <Boxes filesList={props.filesList} />
                   </div>
                </div>
 
-               <div className={'ring py-4'}>
+               <div className={'space-y-6'}>
                   <h2 className='text-center text-3xl sm:text-5xl capitalize font-roboto'>Unlimited access to 100+ instructors.</h2>
                   <div className="flex items-center justify-center space-x-4">
                      <Tabs />
+                  </div>
+                  <div className="flex space-x-4">
+                     {
+                        palette.map((p, i) => (
+                           <div key={i} className={`${p} w-full min-h-[100px] rounded-t-3xl`}></div>
+                        ))
+                     }
                   </div>
                </div>
 
@@ -155,6 +169,7 @@ function Boxes(props: Props) {
    const boxes: Partial<Box>[] = [
       { count: 100, title: 'cooking course' },
       { count: 135, title: 'writing' },
+      { count: 46, title: 'design' },
       { count: 72, title: 'business' },
    ]
 
@@ -176,7 +191,7 @@ function Boxes(props: Props) {
                      className={`
                         cursor-pointer rounded-2xl relative bg-gray-300 transition-all 
                         overflow-hidden transform
-                        ${active ? 'flex-[3] rotate-0' : 'flex-1 -rotate-2'}
+                        ${active ? 'flex-[3] rotate-0 shadow-2xl shadow-teal-800/40' : 'flex-1 -rotate-2'}
                      `}
                   >
                      {
@@ -194,7 +209,7 @@ function Boxes(props: Props) {
                                  key={i}
                                  initial={{ opacity: 0, y: -25 }}
                                  animate={{ opacity: 1, y: 0 }}
-                                 className={`flex space-x-4 justify-between ${i === 0 ? 'pl-24 px-12' : 'px-8'}`}
+                                 className={`flex space-x-4 justify-between px-8 ${i === 0 ? 'pl-24' : ''}`}
                               >
                                  <h2 className=''>{box.title}</h2>
                                  <div className="text-xl">
