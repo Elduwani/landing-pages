@@ -7,12 +7,14 @@ import MobileMenu from '@components/MobileMenu'
 import { randomIndices } from '@lib/index'
 import { useScreenSize } from '@lib/hooks'
 import styles from '@styles/quillex.module.scss'
-import { motion } from 'framer-motion'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import fs from 'fs'
+import path from 'path'
+import { GetStaticProps } from 'next'
+import { motion } from 'framer-motion'
 
 const attribution: Attribution = {
    name: 'Halo Lab',
@@ -22,7 +24,10 @@ const attribution: Attribution = {
 
 const links = ['all categories', 'pricing', 'for business', 'search']
 
-export default function Quillex() {
+interface Props {
+   filesList: Box['src'][]
+}
+export default function Quillex(props: Props) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
 
@@ -80,7 +85,7 @@ export default function Quillex() {
                         <p className={styles.headline}>grow.</p>
                      </div>
                      <div className="mt-auto lg:w-[500px] z-10 relative">
-                        <div className="w-full flex h-28 shadow-2xl shadow-slate-500/40 border border-gray-100">
+                        <div className="w-full flex h-28 shadow-2xl shadow-slate-500/40">
                            <input
                               type='text'
                               className="pl-12 w-full placeholder:text-gray-500 placeholder:text-2xl text-2xl text-gray-700"
@@ -99,7 +104,7 @@ export default function Quillex() {
                      </div>
                   </div>
                   <div className="col-span-2 flex space-x-10">
-                     <Boxes />
+                     <Boxes filesList={props.filesList} />
                   </div>
                </div>
 
@@ -116,11 +121,24 @@ export default function Quillex() {
    )
 }
 
-export async function getServerSideProps() {
-   console.log(fs);
-   // const fileCount = fs
+export const getStaticProps: GetStaticProps = async () => {
+   /**
+    * Predefined images are stored in public/quillex/... <Ex: img-1.jpg>
+    * Get all images that match this filename parameter
+    */
+   const filesList: Props['filesList'] = []
+   const directory = path.join(process.cwd(), 'public/quillex')
+   const filenames = fs.readdirSync(directory)
+
+   filenames?.forEach(name => {
+      const filePath = path.join(directory, name)
+      if (filePath.match(/img-[0-9].jpg/i)) { //KISS!
+         filesList.push(`/quillex/${name}`)
+      }
+   })
+
    return {
-      props: {}, // will be passed to the page component as props
+      props: { filesList },
    }
 }
 
@@ -130,51 +148,64 @@ interface Box {
    count: number
    active?: boolean
 }
-function Boxes() {
+function Boxes(props: Props) {
    const [activeIndex, setActiveIndex] = useState(0)
-   const indices = useMemo(() => randomIndices(6, (n) => n === 0), []) //6 images in public/quillex/
-   const boxes: Partial<Box>[] = [
-      {
-         count: 100,
-         title: 'cooking course',
-      },
-      {
-         count: 135,
-         title: 'best flights',
-      },
-      {
-         count: 72,
-         title: 'local events',
-      },
-   ]
+   const indices = useRef(randomIndices(props.filesList.length))
 
    const mappedBoxes = boxes.map((b, i) => {
-      b.src = `/quillex/img-${indices[i]}.jpg`
+      b.src = props.filesList[indices.current[i]]
       return b as Required<Box>
    })
 
    return (
       <>
          {
-            mappedBoxes.map((box, i) => (
-               <div
-                  key={box.title}
-                  onMouseEnter={() => setActiveIndex(i)}
-                  className={`
-                     cursor-pointer rounded-2xl relative bg-gray-300 transition-all
-                     ${activeIndex === i ? 'flex-[3]' : 'flex-1'}
-                  `}
-               >
-                  <Image
-                     width={100}
-                     height={100}
-                     objectFit='contain'
-                     src={box.src}
-                  />
-                  <h3 className='text-lg capitalize font-bold text-gray-700 mb-2'>{box.title}</h3>
-               </div>
-            ))
+            mappedBoxes.map((box, i) => {
+               const active = activeIndex === i
 
+               return (
+                  <div
+                     key={box.title}
+                     onMouseEnter={() => setActiveIndex(i)}
+                     className={`
+                        cursor-pointer rounded-2xl relative bg-gray-300 transition-all overflow-hidden
+                        ${active ? 'flex-[3]' : 'flex-1'}
+                     `}
+                  >
+                     <Image
+                        layout='fill'
+                        className='object-cover top-0 left-0'
+                        src={box.src}
+                     />
+                     <div className="relative h-5/6 ring-inset flex flex-col justify-end text-white font-roboto capitalize text-4xl">
+                        {
+                           active ? (
+                              <motion.div
+                                 initial={{ opacity: 0, y: 25 }}
+                                 animate={{ opacity: 1, y: 0 }}
+                                 className={`px-12 flex space-x-4 ${i === 0 && 'pl-24'}`}
+                              >
+                                 <h2 className=''>{box.title}</h2>
+                                 <div className="text-xl">
+                                    <h1 className='uppercase text-5xl'>{box.count}</h1>
+                                    <p>topics</p>
+                                 </div>
+                              </motion.div>
+                           )
+                              : (
+                                 <motion.div
+                                    initial={{ opacity: 0, x: 25 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    className="bg-purple-800 min-h-[150px] w-4/5 p-4"
+                                 >
+                                    <h2 className='transform -rotate-90 origin-top-left translate-y-24'>{box.title}</h2>
+                                 </motion.div>
+                              )
+                        }
+                     </div>
+                  </div>
+               )
+            })
          }
       </>
    )
@@ -189,3 +220,18 @@ function Logo() {
       </Link>
    )
 }
+
+const boxes: Partial<Box>[] = [
+   {
+      count: 100,
+      title: 'cooking course',
+   },
+   {
+      count: 135,
+      title: 'writing',
+   },
+   {
+      count: 72,
+      title: 'business',
+   },
+]

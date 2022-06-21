@@ -26,19 +26,29 @@ export async function getFakeFaces(count: number): Promise<FakeFace[]> {
    return arr
 }
 
-export function randomIndices(count: number, ignore?: (n: number) => boolean): number[] {
+export function randomIndices(count: number, minValue = 0): number[] {
    const map = new Map()
-   const result = [1, 2, 3]
+   const result: number[] = []
 
-   // while (result.length < count) {
-   //    const n = Math.floor(Math.random() * count)
-   //    if (map.has(n) || ignore?.(n)) {
-   //       console.log("Skipping...")
-   //       continue
-   //    }
-   //    map.set(n, true)
-   //    result.push(n)
-   // }
+   for (let i = 0; i < count; i++) {
+      const n = getRandomInt(minValue, count)
+
+      if (map.has(n)) {
+         i--
+         continue
+      }
+
+      map.set(n, true)
+      result.push(n)
+
+   }
 
    return result
+}
+
+function getRandomInt(min: number, max: number) {
+   min = Math.ceil(min);
+   max = Math.floor(max);
+   //The maximum is exclusive and the minimum is inclusive
+   return Math.floor(Math.random() * (max - min) + min);
 }
