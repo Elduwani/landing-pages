@@ -42,7 +42,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                isMobile ?
                   <MobileMenu
                      logo={<Logo />}
-                     className="mb-12"
+                     className="mb-12 py-4"
                      additional_menu={additional_menu}
                      links={links}
                      attribution={[

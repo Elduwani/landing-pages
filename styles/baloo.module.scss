@@ -1,9 +1,22 @@
 .main {
-   background-image: url('/baloo/blob.svg');
-   background-position: top right;
-   background-repeat: no-repeat;
-   /* background-size: 900px 900px; */
+   position: relative;
+   // background-size: auto;
    @apply min-h-screen flex flex-col px-6;
+
+   & > *:not(header) {
+      z-index: 2;
+      // position: relative;
+   }
+   
+   &::after {
+      z-index: 1;
+      content: '';
+      background-image: url('/baloo/blob.svg');
+      background-position: top right;
+      background-repeat: no-repeat;
+      @apply block absolute top-0 right-0 bg-contain;
+      @apply w-[300px] h-[300px] sm:w-[800px] sm:h-[800px];
+   }
 }
 
 .stroke {
@@ -27,16 +40,20 @@
 
 .services {
    position: relative;
-   @apply space-y-24 pb-24;
+   @apply space-y-8 sm:space-y-12 lg:space-y-24 pb-24;
+   
+   & > * {
+      z-index: 2;
+      position: relative;
+   }
    
    &::after {
       content: '';
-      width: 150px;
-      height: 150px;
+      width: 100%;
       background-image: url('/baloo/pattern.svg');
-      background-position: top right;
       background-repeat: no-repeat;
-      background-size: cover;
-      @apply block absolute top-0 -right-10 z-10;
+      background-size: contain;
+      z-index: 1;
+      @apply block absolute top-0 -right-10 bg-right-top opacity-30 sm:opacity-70 h-[100px] lg:h-[150px];
    }
 }

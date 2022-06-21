@@ -29,7 +29,10 @@ export default function Baloo() {
          <Link href="#">
             <a className='block'>Sign Up</a>
          </Link>
-         <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white">Connect Wallet</button>
+         <p className='flex items-center space-x-1'>
+            <span>EN</span>
+            <HiChevronDown />
+         </p>
       </div>
    )
 
@@ -45,7 +48,7 @@ export default function Baloo() {
                isMobile ?
                   <MobileMenu
                      logo={<Logo />}
-                     className="mb-12"
+                     className="mb-8 py-8"
                      additional_menu={additional_menu}
                      links={links}
                      attribution={['Ar Shakir', 'https://www.instagram.com/p/CQ2gb41q_Ky/']}
@@ -71,16 +74,20 @@ export default function Baloo() {
                   </header>
             }
 
-            <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto'>
-               <div className="grid grid-cols-2 min-h-[800px] mb-24">
-                  <div className="pt-24 space-y-4">
+            <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto md:px-20 lg:px-0'>
+               <div className="lg:grid grid-cols-2 min-h-[800px] mb-24">
+                  <div className="md:pt-12 lg:pt-24 space-y-4">
                      <p className='uppercase tracking-widest text-xl font-bold text-red-500'>
                         best destinations around the world
                      </p>
-                     <p className='text-[100px] leading-[100px] tracking-tighter font-roboto font-bold'>
+                     <p className={`
+                        font-roboto font-bold text-[50px] leading-[50px] 
+                        md:text-[80px] md:leading-[80px] tracking-tighter 
+                        lg:text-[100px] lg:leading-[100px]
+                     `}>
                         Travel, <span className={styles.stroke}>enjoy</span> and live a new and full life
                      </p>
-                     <p className='py-4 text-gray-500 max-w-lg text-lg tracking-wide'>
+                     <p className='py-4 text-gray-500 max-w-lg md:text-lg md:tracking-wide'>
                         Eius sed sit, unde animi reiciendis, deserunt rem odit delectus dolor exercitationem impedit non mollitia, deleniti veritatis veniam. Unde placeat minima voluptatem.
                      </p>
                      <div className="flex items-center space-x-8">
@@ -92,8 +99,20 @@ export default function Baloo() {
                            <span>Play demo</span>
                         </div>
                      </div>
+                     {
+                        //attribution
+                        <Link
+                           href='https://www.instagram.com/p/CQ2gb41q_Ky/'
+                           target="_blank"
+                           rel="noreferrer"
+                        >
+                           <a className='text-3xl text-gray-700' target={"_blank"}>
+                              <span className='text-xs mt-3 text-gray-400'>UI Design by</span> <span className='text-sm'>Ar Shakir</span>
+                           </a>
+                        </Link>
+                     }
                   </div>
-                  <div className="hero-image">
+                  <div className="mt-8 lg:mt-0">
                      <Image
                         src="/baloo/hero.png"
                         width={600}
@@ -107,9 +126,9 @@ export default function Baloo() {
                <div className={styles.services}>
                   <div className="text-center">
                      <p className='uppercase tracking-wider font-bold text-lg text-gray-600'>category</p>
-                     <h2 className='text-5xl capitalize font-roboto font-bold'>We offer best services</h2>
+                     <h2 className='text-3xl sm:text-5xl capitalize font-roboto font-bold'>We offer best services</h2>
                   </div>
-                  <div className="boxes grid grid-cols-4 gap-4">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                      {
                         boxes.map(box => <Box key={box.title} {...box} />)
                      }
@@ -135,7 +154,7 @@ function Box(props: BoxProps) {
             className={`p-6 bg-white cursor-pointer rounded-2xl hover:shadow-2xl hover:shadow-orange-400/40 shadow-orange-400/40 z-10 relative ${props.highlighted && 'shadow-2xl'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            whileHover={{ y: -15 }}
+            whileHover={{ y: -10 }}
          >
             <Image
                width={100}
@@ -157,7 +176,7 @@ function Box(props: BoxProps) {
 function Logo() {
    return (
       <Link href='/'>
-         <a className='text-5xl font-changa text-gray-700'>Baloo</a>
+         <a className='text-2xl lg:text-5xl font-changa text-gray-700'>Baloo</a>
       </Link>
    )
 }
