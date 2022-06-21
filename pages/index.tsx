@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '@styles/Home.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -16,9 +17,15 @@ export default function Home() {
         </h1>
 
         <p className='flex space-x-4 items-center mt-8'>
-          <a href="/beast">Beast NFT</a>
-          <a href="/baloo">Baloo</a>
-          <a href="/quillex">Quillex</a>
+          <Link href="/beast">
+            <a>Beast NFT</a>
+          </Link>
+          <Link href="/baloo">
+            <a>Baloo</a>
+          </Link>
+          <Link href="/quillex">
+            <a>Quillex</a>
+          </Link>
         </p>
       </main>
     </div>

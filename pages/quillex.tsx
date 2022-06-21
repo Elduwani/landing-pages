@@ -260,6 +260,7 @@ function Tabs() {
                const active = router.query.category === category
                return (
                   <button
+                     key={category}
                      onClick={() => router.push(`/quillex?category=${category}`, undefined, { shallow: true })}
                      className={`
                         text-gray-700 capitalize p-4 hover:opacity-100
