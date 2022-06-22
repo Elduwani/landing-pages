@@ -1,8 +1,15 @@
 .main {
-   @apply bg-gradient-to-tr from-lime-50 to-white;
+   position: relative;
+   @apply bg-gradient-to-tr from-lime-50 to-white px-6 lg:px-12;
+
+   & > *:not(header) {
+      z-index: 2;
+      // position: relative;
+   }
 }
 
 .headline {
    @apply font-roboto text-[50px] leading-[50px] capitalize; 
-   @apply md:text-[80px] md:leading-[80px] tracking-tight ;
+   @apply md:text-[70px] md:leading-[70px] tracking-tight;
+   @apply lg:text-[100px] lg:leading-[100px];
 }

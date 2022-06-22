@@ -39,13 +39,13 @@ export default function Quillex(props: Props) {
       'bg-gradient-to-t from-teal-400 to-teal-300',
    ]
 
-   const additional_menu = (
-      <div className="space-y-8 capitalize mt-auto">
+   const additionalMenu = (
+      <>
          <Link href="#">
             <a className='block'>log in</a>
          </Link>
          <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white capitalize">free trial</button>
-      </div>
+      </>
    )
 
    return (
@@ -61,7 +61,8 @@ export default function Quillex(props: Props) {
                   <MobileMenu
                      logo={<Logo />}
                      className="mb-8 py-8"
-                     additional_menu={additional_menu}
+                     additionalStyles='bg-lime-50'
+                     additionalMenu={additionalMenu}
                      links={links}
                   /> :
                   <header className='w-full max-w-7xl mx-auto h-24 bg-transparent flex items-center space-x-12 justify-between sticky top-0'>
@@ -84,10 +85,10 @@ export default function Quillex(props: Props) {
                   </header>
             }
 
-            <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto md:px-20 lg:px-0 pt-12 ring-green-300'>
-               <div className="lg:grid grid-cols-3 min-h-[700px] mb-32">
+            <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto lg:pt-12'>
+               <div className="lg:grid grid-cols-3 min-h-[700px] mb-16 md:mb-32 space-y-12 lg:space-y-0">
                   <div className="md:pt-12 lg:pt-24">
-                     <div className="space-y-2 mb-28">
+                     <div className="space-y-2 md:flex md:space-x-4 md:justify-center md:space-y-0 lg:block mb-10 lg:mb-28 text-center">
                         <p className={styles.headline}>watch.</p>
                         <p className={styles.headline}>learn.</p>
                         <p className={styles.headline}>grow.</p>
@@ -99,7 +100,7 @@ export default function Quillex(props: Props) {
                               className="px-4 pl-12 w-full placeholder:text-gray-500 placeholder:text-2xl text-2xl text-gray-700 focus:outline-none"
                               placeholder='Find Your Passion...'
                            />
-                           <button className="w-[30%] text-4xl font-roboto bg-lime-500">Go</button>
+                           <button className="w-[30%] text-2xl md:text-4xl font-roboto bg-lime-500">Go</button>
                         </div>
                         {
                            //attribution
@@ -111,20 +112,22 @@ export default function Quillex(props: Props) {
                         }
                      </div>
                   </div>
-                  <div className="col-span-2 flex space-x-8">
+                  <div className="col-span-2 flex space-x-4 lg:space-x-8">
                      <Boxes filesList={props.filesList} />
                   </div>
                </div>
 
                <div className={'space-y-6'}>
-                  <h2 className='text-center text-3xl sm:text-5xl capitalize font-roboto'>Unlimited access to 100+ instructors.</h2>
-                  <div className="flex items-center justify-center space-x-4">
+                  <h2 className='text-center text-3xl sm:text-5xl capitalize font-roboto'>
+                     Unlimited access to 100+ instructors.
+                  </h2>
+                  <div className="flex items-center lg:justify-center space-x-2 lg:space-x-4 whitespace-nowrap overflow-x-auto scrollbar border-b">
                      <Tabs />
                   </div>
                   <div className="flex space-x-4">
                      {
                         palette.map((p, i) => (
-                           <div key={i} className={`${p} w-full min-h-[100px] rounded-t-3xl`}></div>
+                           <div key={i} className={`${p} w-full min-h-[100px] rounded-t-2xl md:rounded-t-3xl`}></div>
                         ))
                      }
                   </div>
@@ -165,15 +168,20 @@ interface Box {
 }
 function Boxes(props: Props) {
    const [activeIndex, setActiveIndex] = useState(0)
+   const screensize = useScreenSize()
+   const isMobile = screensize.match(/xs|sm/i)
    const indices = useRef(randomIndices(props.filesList.length))
+
    const boxes: Partial<Box>[] = [
-      { count: 100, title: 'cooking course' },
+      { count: 100, title: 'cooking' },
       { count: 135, title: 'writing' },
       { count: 46, title: 'design' },
       { count: 72, title: 'business' },
    ]
 
-   const mappedBoxes = boxes.map((b, i) => {
+   const mappedBoxes = boxes
+   .slice(0 , isMobile ? 3 : boxes.length)
+   .map((b, i) => {
       b.src = props.filesList[indices.current[i]]
       return b as Required<Box>
    })
@@ -188,9 +196,10 @@ function Boxes(props: Props) {
                   <motion.div
                      key={box.title}
                      onMouseEnter={() => setActiveIndex(i)}
+                     onClick={() => !active && setActiveIndex(i)}
                      className={`
                         cursor-pointer rounded-2xl relative bg-gray-300 transition-all 
-                        overflow-hidden transform
+                        overflow-hidden transform min-h-[250px] md:min-h-[400px]
                         ${active ? 'flex-[3] rotate-0 shadow-2xl shadow-teal-800/40' : 'flex-1 -rotate-2'}
                      `}
                   >
@@ -202,19 +211,23 @@ function Boxes(props: Props) {
                               src={box.src}
                            /> : null
                      }
-                     <div className="relative h-5/6 ring-inset flex flex-col justify-end text-white font-roboto capitalize text-4xl z-10">
+                     <div className={`relative h-[90%] lg:h-5/6 flex flex-col 
+                        justify-end text-white font-roboto capitalize text-2xl md:text-4xl z-10
+                     `}>
                         {
                            active ? (
                               <motion.div
                                  key={i}
                                  initial={{ opacity: 0, y: -25 }}
                                  animate={{ opacity: 1, y: 0 }}
-                                 className={`flex space-x-4 justify-between px-8 ${i === 0 ? 'pl-24' : ''}`}
+                                 className={`flex space-x-4 justify-between px-2 md:px-8 ${i === 0 && 'lg:pl-24'}`}
                               >
-                                 <h2 className=''>{box.title}</h2>
-                                 <div className="text-xl">
-                                    <h1 className='uppercase text-5xl'>{box.count}</h1>
-                                    <p>topics</p>
+                                 <h2>{box.title} course</h2>
+                                 <div>
+                                    <h1 className='md:text-5xl'>
+                                       {box.count}
+                                    </h1>
+                                    <p className='text-xs md:text-lg'>topics</p>
                                  </div>
                               </motion.div>
                            )
@@ -223,9 +236,11 @@ function Boxes(props: Props) {
                                     key={i + 1}
                                     initial={{ opacity: 0, x: 25 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    className="bg-purple-800 min-h-[150px] w-4/5 p-6"
+                                    className="grid place-items-end bg-purple-800/80 min-h-[150px] w-4/5 px-1 md:px-4"
                                  >
-                                    <h2 className='transform -rotate-90 origin-top-left translate-y-16'>{box.title}</h2>
+                                    <h2 className='lg:text-5xl transform -rotate-90 origin-top-left stranslate-x-1/2 mds:translate-y-16'>
+                                       {box.title}
+                                    </h2>
                                  </motion.div>
                               )
                         }

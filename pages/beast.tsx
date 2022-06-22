@@ -16,18 +16,23 @@ import { useScreenSize } from '@lib/hooks'
 import styles from '@styles/beast.module.scss'
 
 const links = ['marketplace', 'resources', 'community', 'FAQ']
+const attribution: Attribution = {
+   name: 'Suzauddoula Bappy',
+   link: 'https://dribbble.com/shots/18335013-NFT-Marketplace-Website',
+   homepage: 'https://dribbble.com/Suzauddoula_Bappy'
+}
 
 export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
 
-   const additional_menu = (
-      <div className="space-y-8 capitalize mt-auto">
+   const additionalMenu = (
+      <>
          <Link href="#">
             <a className='block'>Sign Up</a>
          </Link>
          <button className="w-full max-w-[200px] rounded-full p-2 px-6 bg-gray-800 text-white">Connect Wallet</button>
-      </div>
+      </>
    )
 
    return (
@@ -43,12 +48,9 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                   <MobileMenu
                      logo={<Logo />}
                      className="mb-12 py-4"
-                     additional_menu={additional_menu}
+                     additionalMenu={additionalMenu}
+                     attribution={attribution}
                      links={links}
-                     attribution={[
-                        'Suzauddoula Bappy',
-                        'https://dribbble.com/shots/18335013-NFT-Marketplace-Website'
-                     ]}
                   /> :
                   <header className='h-20 bg-transparent flex items-center justify-between px-4 lg:px-14 mb-16 sticky top-0'>
                      <Logo />

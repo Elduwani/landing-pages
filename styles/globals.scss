@@ -1,3 +1,5 @@
+@import "./variables";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,6 +23,8 @@
   .debug-responsive {
     @apply sm:bg-red-300 md:bg-green-300 lg:bg-blue-300;
   }
+
+  .scrollbar{ @include customScrollBar }
 
   /* .noise-bg::after {
     content: '';

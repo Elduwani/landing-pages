@@ -30,8 +30,8 @@ export default function Baloo() {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
 
-   const additional_menu = (
-      <div className="space-y-8 capitalize mt-auto">
+   const additionalMenu = (
+      <>
          <Link href="#">
             <a className='block'>Sign Up</a>
          </Link>
@@ -39,7 +39,7 @@ export default function Baloo() {
             <span>EN</span>
             <HiChevronDown />
          </p>
-      </div>
+      </>
    )
 
    return (
@@ -55,7 +55,7 @@ export default function Baloo() {
                   <MobileMenu
                      logo={<Logo />}
                      className="mb-8 py-8"
-                     additional_menu={additional_menu}
+                     additionalMenu={additionalMenu}
                      links={links}
                   /> :
                   <header className='w-full max-w-7xl mx-auto h-24 bg-transparent flex items-center justify-between sticky top-0'>

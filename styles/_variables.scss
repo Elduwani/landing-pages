@@ -1,0 +1,27 @@
+@mixin borderRadius($size: 0.5rem) {
+    border-radius: $size;
+}
+
+@mixin customScrollBar() {
+  // overflow-y: auto;
+  scroll-behavior: smooth;
+
+    &::-webkit-scrollbar{
+      @include borderRadius();
+      width: 6px;
+      height: 6px;
+    }
+      
+    &::-webkit-scrollbar-track{
+      @include borderRadius();
+      // background-color: rgb(35, 35, 39);
+    }
+
+    &::-webkit-scrollbar-thumb{
+      @include borderRadius();
+      // background-color: rgb(121, 121, 123);
+      
+    }
+    scrollbar-width: thin;
+    // scrollbar-color: rgb(121, 121, 123) rgb(35, 35, 39);
+}
