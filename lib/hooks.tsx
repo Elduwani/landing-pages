@@ -1,5 +1,5 @@
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function useMedia<T>(queries: string[], values: T[] | readonly T[], defaultValue: T) {
     const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList[]>()
@@ -68,24 +68,22 @@ export function useRefSize(ref: React.MutableRefObject<Element>) {
     return size
 }
 
-export function useTimeout(callback: Function, delay: number) {
-    // React hook for delaying calls with time
-    // returns callback to use for cancelling
-    const timeoutIdRef = useRef<NodeJS.Timeout | number>();
-    const cancel = useCallback(() => {
-        const timeoutId = timeoutIdRef.current;
-        if (timeoutId) {
-            timeoutIdRef.current = undefined;
-            clearTimeout(timeoutId as number);
-        }
-    }, [timeoutIdRef])
+export function useInterval(callback: () => void, delay: number | null, dependency?: any) {
+    const savedCallback = useRef<typeof callback>()
+
+    //remember the latest callback
+    useEffect(() => {
+        savedCallback.current = callback
+    }, [callback])
 
     useEffect(() => {
-        timeoutIdRef.current = setTimeout(callback, delay);
-        return cancel;
-    }, [callback, delay, cancel]);
-
-    return cancel;
+        const tick = () => savedCallback.current?.()
+        if (delay !== null) {
+            let counter1 = setInterval(tick, delay)
+            return () => clearInterval(counter1)
+        }
+        //eslint-disable-next-line
+    }, [delay, dependency])
 }
 
 export function useClipboard() {

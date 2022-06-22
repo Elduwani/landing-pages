@@ -4,7 +4,7 @@
  */
 
 import MobileMenu from '@components/MobileMenu'
-import { useScreenSize } from '@lib/hooks'
+import { useInterval, useScreenSize } from '@lib/hooks'
 import { randomIndices } from '@lib/index'
 import styles from '@styles/quillex.module.scss'
 import { motion } from 'framer-motion'
@@ -88,7 +88,7 @@ export default function Quillex(props: Props) {
             <div className='relative flex-1 flex flex-col w-full max-w-7xl mx-auto lg:pt-12'>
                <div className="lg:grid grid-cols-3 min-h-[700px] mb-16 md:mb-32 space-y-12 lg:space-y-0">
                   <div className="md:pt-12 lg:pt-24">
-                     <div className="space-y-2 md:flex md:space-x-4 md:justify-center md:space-y-0 lg:block mb-10 lg:mb-28 text-center">
+                     <div className="space-y-2 md:flex md:space-x-4 md:justify-center md:space-y-0 lg:block mb-10 lg:mb-28 text-center lg:text-left">
                         <p className={styles.headline}>watch.</p>
                         <p className={styles.headline}>learn.</p>
                         <p className={styles.headline}>grow.</p>
@@ -167,10 +167,16 @@ interface Box {
    active?: boolean
 }
 function Boxes(props: Props) {
+   const [isDirty, setIsDirty] = useState(false)
    const [activeIndex, setActiveIndex] = useState(0)
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm/i)
    const indices = useRef(randomIndices(props.filesList.length))
+
+   function handleInteraction(index: number) {
+      if (index !== activeIndex) setActiveIndex(index)
+      setIsDirty(true)
+   }
 
    const boxes: Partial<Box>[] = [
       { count: 100, title: 'cooking' },
@@ -180,11 +186,21 @@ function Boxes(props: Props) {
    ]
 
    const mappedBoxes = boxes
-   .slice(0 , isMobile ? 3 : boxes.length)
-   .map((b, i) => {
-      b.src = props.filesList[indices.current[i]]
-      return b as Required<Box>
-   })
+      .slice(0, isMobile ? 3 : boxes.length)
+      .map((b, i) => {
+         b.src = props.filesList[indices.current[i]]
+         return b as Required<Box>
+      })
+
+   useInterval(() => {
+      //Automatically cycle through boxes if there's been no user interaction.
+      setActiveIndex(st => (st + 1) % mappedBoxes.length)
+   }, isDirty ? null : 4000)
+
+   useInterval(() => {
+      //Restart cycling through boxes 10s after last user interaction.
+      isDirty && setIsDirty(false)
+   }, isDirty ? 10000 : null)
 
    return (
       <>
@@ -195,8 +211,8 @@ function Boxes(props: Props) {
                return (
                   <motion.div
                      key={box.title}
-                     onMouseEnter={() => setActiveIndex(i)}
-                     onClick={() => !active && setActiveIndex(i)}
+                     onMouseEnter={() => handleInteraction(i)}
+                     onClick={() => handleInteraction(i)}
                      className={`
                         cursor-pointer rounded-2xl relative bg-gray-300 transition-all 
                         overflow-hidden transform min-h-[250px] md:min-h-[400px]
