@@ -1,0 +1,11 @@
+.container {
+  padding: 0 2rem;
+}
+
+.description {
+  @apply text-neutral-500 my-6;
+
+  a {
+    @apply underline text-white;
+  }
+}

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { FiX } from "react-icons/fi"
 import { HiMenuAlt3 } from "react-icons/hi"
+import CustomLink from "./Link"
 
 interface MenuProps {
    links: string[]
@@ -64,15 +65,13 @@ export default function MobileMenu(props: MenuProps) {
                      </div>
                      {
                         props.attribution &&
-                        <Link href={props.attribution.link}>
-                           <a
-                              className='text-3xl text-gray-700 mt-4 space-y-1'
-                              target={"_blank"}
-                              rel="noreferrer"
-                           >
-                              <span className='text-xs mt-3 text-gray-500'>UI Design:</span> <span className='text-sm'>{props.attribution.name}</span>
-                           </a>
-                        </Link>
+                        <CustomLink 
+                           href={props.attribution.link}
+                           className='text-3xl text-gray-700 mt-4 space-y-1'
+                           external
+                        >
+                           <span className='text-xs mt-3 text-gray-500'>UI Design:</span> <span className='text-sm'>{props.attribution.name}</span>
+                        </CustomLink>
                      }
                   </div>
                </div>

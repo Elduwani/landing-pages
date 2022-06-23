@@ -141,7 +141,7 @@ export default function Quillex(props: Props) {
 
 export const getStaticProps: GetStaticProps = async () => {
    /**
-    * Predefined images are stored in public/quillex/... <Ex: img-1.jpg>
+    * Predefined images are stored in public/quillex/... <Ex: hero-img-1.jpg>
     * Get all images that match this filename parameter
     */
    const filesList: Props['filesList'] = []
@@ -198,9 +198,9 @@ function Boxes(props: Props) {
    }, isDirty ? null : 4000)
 
    useInterval(() => {
-      //Restart cycling through boxes 10s after last user interaction.
+      //Restart cycling through boxes 5s after last user interaction.
       isDirty && setIsDirty(false)
-   }, isDirty ? 10000 : null)
+   }, isDirty ? 5000 : null)
 
    return (
       <>
