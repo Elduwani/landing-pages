@@ -4,6 +4,7 @@
  */
 
 import MobileMenu from '@components/MobileMenu'
+import attributions from '@lib/attributions'
 import { useInterval, useScreenSize } from '@lib/hooks'
 import { randomIndices } from '@lib/index'
 import styles from '@styles/quillex.module.scss'
@@ -17,12 +18,7 @@ import { useRouter } from 'next/router'
 import path from 'path'
 import { useRef, useState } from 'react'
 
-const attribution: Attribution = {
-   name: 'Halo Lab',
-   link: 'https://dribbble.com/shots/16358186-Web-site-landing-page',
-   homepage: 'https://dribbble.com/halolab'
-}
-
+const attribution = attributions['skillex']
 const links = ['all categories', 'pricing', 'for business', 'search']
 
 interface Props {

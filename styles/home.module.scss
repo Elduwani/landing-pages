@@ -3,9 +3,21 @@
 }
 
 .description {
-  @apply text-neutral-500 my-6;
+  @apply text-neutral-500 my-2;
 
   a {
-    @apply underline text-white;
+    @apply underline text-neutral-200 capitalize;
+  }
+}
+
+.projectsContainer {
+  @apply space-y-3;
+
+  &:hover > div{
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }

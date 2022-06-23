@@ -14,13 +14,10 @@ import MobileMenu from '@components/MobileMenu'
 import { getFakeFaces } from '@lib/index'
 import { useScreenSize } from '@lib/hooks'
 import styles from '@styles/beast.module.scss'
+import attributions from '@lib/attributions'
 
 const links = ['marketplace', 'resources', 'community', 'FAQ']
-const attribution: Attribution = {
-   name: 'Suzauddoula Bappy',
-   link: 'https://dribbble.com/shots/18335013-NFT-Marketplace-Website',
-   homepage: 'https://dribbble.com/Suzauddoula_Bappy'
-}
+const attribution = attributions['digitally']
 
 export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
    const screensize = useScreenSize()

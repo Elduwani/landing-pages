@@ -17,13 +17,9 @@ import { useScreenSize } from '@lib/hooks'
 import styles from '@styles/baloo.module.scss'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import attributions from '@lib/attributions'
 
-const attribution: Attribution = {
-   name: 'Ar Shakir',
-   link: 'https://www.instagram.com/p/CQ2gb41q_Ky/',
-   homepage: 'https://www.arshakir.com/uploads/projects/travel-agency-landing-page-freebie.jpg'
-}
-
+const attribution = attributions['jadoo']
 const links = ['destinations', 'hotels', 'flights', 'bookings', 'login']
 
 export default function Baloo() {
