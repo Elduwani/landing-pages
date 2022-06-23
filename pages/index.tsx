@@ -23,7 +23,7 @@ export default function Home() {
           <h1 className='text-6xl font-sans font-bold capitalize'>Landing pages</h1>
           <h2 className='text-xl text-neutral-400 uppercase tracking-widest my-4'>#100DaysOfCode</h2>
           <p className={styles.description}>
-            This project is an open-source collection of statically generated, mobile responsive landing pages I&apos;ve built with <CustomLink href='https://nextjs.org/' external>Nextjs</CustomLink> and <CustomLink href='https://tailwindcss.com/' external>Tailwind CSS</CustomLink>. 
+            This project is an open-source collection of statically generated, mobile responsive landing pages I&apos;m building with <CustomLink href='https://nextjs.org/' external>Nextjs</CustomLink> and <CustomLink href='https://tailwindcss.com/' external>Tailwind CSS</CustomLink>. 
             Some of the UI designs were created by other designers, and are used with attribution.
           </p>
           <p className={styles.description}>
