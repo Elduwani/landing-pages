@@ -27,17 +27,17 @@ export default function Home() {
             Some of the UI designs were created by other designers, and are used with attribution.
           </p>
           <p className={styles.description}>
-            All source code available on <CustomLink href="https://github.com/elduwani/landing-pages" external>GitHub</CustomLink>. This page is inspired by <CustomLink href={attributions['index'].link} external>{attributions['index'].name}</CustomLink>.
+            All source code available on <CustomLink href="https://github.com/Elduwani/landing-pages" external>GitHub</CustomLink>. This page is inspired by <CustomLink href={attributions['index'].link} external>{attributions['index'].name}</CustomLink>.
           </p>
           <div className="flex items-center space-x-8 mt-auto">
             <Avatar className='bg-neutral-400' src='/profile-image.jpg' />
             <p className="flex items-center space-x-3 md:space-x-4">
               <VscGithubInverted className='text-2xl'/>
-              <CustomLink href="https://github.com/elduwani">GitHub</CustomLink>
+              <CustomLink href="https://github.com/elduwani" external>GitHub</CustomLink>
             </p>
             <p className="flex items-center space-x-3 md:space-x-4">
               <VscTwitter className='text-2xl'/>
-              <CustomLink href="https://twitter.com/elduwani">Twitter</CustomLink>
+              <CustomLink href="https://twitter.com/elduwani" external>Twitter</CustomLink>
             </p>
           </div>
         </div>
