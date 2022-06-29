@@ -19,14 +19,11 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
    const attribution = useAttribution('blitz')
 
    const additionalMenu = (
-      <>
-         <Link href="#">
-            <a className='block'>Sign Up</a>
-         </Link>
-         <Link href="#">
-            <a className='block'>Sign Up</a>
-         </Link>
-      </>
+      <Link href='#'>
+         <a className='bg-gray-800 rounded-full h-9 grid place-content-center px-4 py-1 text-white'>
+            Contact Us
+         </a>
+      </Link>
    )
 
    return (
@@ -35,12 +32,12 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
             <title>Look beyong limits</title>
          </Head>
 
-         <main className="w-full max-w-6xl mx-auto px-8 flex flex-col min-h-full">
+         <main className="w-full max-w-6xl mx-auto px-4 lg:px-8 pb-4 lg:pb-0 flex flex-col min-h-full">
             {
                isMobile ?
                   <MobileMenu
                      logo={<Logo />}
-                     className="mb-8 py-8"
+                     className="mb-4 py-6"
                      additionalMenu={additionalMenu}
                      links={links}
                   /> :
@@ -73,48 +70,50 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
             }
 
             <div className="bg-neutral-800 flex-1 flex flex-col">
-               <div className="flex-1 grid grid-cols-3 gap-0.5 p-0.5">
-                  <div className="bg-gray-50 col-span-2 rounded-2xl p-8 py-14 flex flex-col justify-between relative z-10">
+               <div className="flex-1 lg:grid grid-cols-3 gap-0.5 p-0.5 space-y-0.5 lg:space-y-0">
+                  <div className="bg-gray-50 col-span-2 rounded-2xl p-8 py-14 flex flex-col justify-between relative">
                      <h1 className={`
                         font-roboto font-bold text-[50px] leading-[50px] 
-                        md:text-[80px] md:leading-[80px]
+                        md:text-[80px] md:leading-[80px] mb-4
                         lg:text-[100px] lg:leading-[100px] max-w-md
                      `}>Futurist of smart design</h1>
                      <div className="flex space-x-4">
-                        <button className="noise-bg overflow-hidden rounded-full px-12 bg-gradient-to-tr from-orange-100 to-red-400 font-bold text-lg">
+                        <button className="noise-bg overflow-hidden rounded-full px-6 md:px-12 bg-gradient-to-tr from-orange-100 to-red-400 font-bold text-lg whitespace-nowrap">
                            <span className="relative z-[2]">Get in touch</span>
                         </button>
-                        <span className="text-3xl w-14 h-14 rounded-full ring-2 ring-gray-600 text-neutral-800 grid place-content-center">
+                        <span className="flex-shrink-0 text-3xl w-14 h-14 rounded-full ring-2 ring-gray-600 text-neutral-800 grid place-content-center">
                            <RiMessage3Fill />
                         </span>
                      </div>
-                     <div className="absolute h-full w-full max-w-xl top-0 right-0 transform translate-x-1/2">
-                        <div className="relative h-full w-full">
-                           <div className="text-[100px] text-neutral-300 relative transform translate-y-1/2 translate-x-8 h-1/2 max-w-min">
-                              <BsArrowUpRight />
-                           </div>
-                           <Image
-                              layout="fill"
-                              src="/blitz/hero-image.png"
-                              objectFit="contain"
-                              objectPosition="bottom right"
-                              // link="https://unsplash.com/photos/aoEwuEH7YAs"
-                              alt='man wearing black sweater'
-                           />
-                        </div>
-                     </div>
                   </div>
-                  <div className="bg-gray-50 rounded-2xl relative overflow-hidden">
+                  <div className="bg-gray-50 rounded-2xl relative">
+                     <div className={`
+                        relative h-full min-h-[250px] lg:max-w-xl lg:min-w-[600px] 
+                        transform lg:-translate-x-1/2 z-10
+                     `}>
+                        <div className="text-[100px] text-neutral-300 relative transform translate-y-1/2 translate-x-8 h-1/2 max-w-min hidden md:block">
+                           <BsArrowUpRight />
+                        </div>
+                        <Image
+                           layout="fill"
+                           src="/blitz/hero-image.png"
+                           objectFit="contain"
+                           // link="https://unsplash.com/photos/aoEwuEH7YAs"
+                           alt='man wearing black sweater'
+                           className="ring lg:object-right-bottom"
+                        />
+                     </div>
                      <Image
                         layout="fill"
                         src="/blitz/artificial.png"
                         alt='artificial text on grunge background'
+                        className="rounded-3xl"
                         objectPosition="center"
                         objectFit="cover"
                      />
                   </div>
                </div>
-               <div className="grid grid-cols-3 gap-0.5 px-0.5">
+               <div className="md:grid grid-cols-3 gap-0.5 px-0.5">
                   <Box className="bg-gray-200">
                      <p className="text-2xl max-w-[230px] text-gray-600">
                         They are very proactive and work to make your product even better.
@@ -135,10 +134,7 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                         <p className="text-2xl font-bold">
                            The most experienced, specialised team across the industry.
                         </p>
-                        {
-                           //attribution
-                           attribution.link
-                        }
+                        {attribution.link}
                      </div>
                      <div className="relative h-8 w-full max-w-xs flex items-center space-x-4">
                         <div className="flex m-1">
@@ -148,12 +144,11 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                                     key={av.filename}
                                     src={av.image_url}
                                     size={40}
-                                    className='bg-green-200 ring-2 -mx-1 ring-white'
+                                    className='bg-green-200 ring-2 -mx-1.5 ring-white'
                                  />
                               )
                            }
                         </div>
-
                         <Link href='#'>
                            <a className="uppercase text-xs w-[100px] font-medium underline">
                               Meet our developers
@@ -161,17 +156,20 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                         </Link>
                      </div>
                   </Box>
-                  <Box className="bg-gray-50 relative noise-bg overflow-hidden">
-                     <div className="space-y-3 relative z-10">
-                        <h1 className="text-[120px] leading-none font-bold shadow-2xl p-2">3D</h1>
-                     </div>
+                  <Box className="bg-gray-50 relative noise-bg overflow-hidden bg-gradient-to-tr from-pink-400 to-orange-200">
+                     <h1 className="text-[80px] leading-none font-bold z-10 p-2 rounded-full">
+                        3D*
+                     </h1>
+                     <p className="text-2xl">
+                        {`Probably the best virtual experiences built on the Metaverse.`}
+                     </p>
                      <Image
                         src='/blitz/3d.jpg'
                         objectFit="cover"
                         objectPosition="center"
                         alt="3d render of girl with floating cars"
                         layout="fill"
-                        className="opacity-20"
+                        className="opacity-10"
                      />
                   </Box>
                </div>
@@ -204,7 +202,10 @@ interface BoxProps {
 }
 function Box(props: BoxProps) {
    return (
-      <div className={`rounded-t-2xl p-8 flex flex-col justify-between relative h-[300px] ${props.className}`}>
+      <div className={`
+         rounded-t-2xl rounded-b-2xl lg:rounded-b-none my-0.5 lg:my-0 p-6 lg:p-8 flex flex-col 
+         justify-between relative h-[300px] ${props.className}
+      `}>
          {props.children}
       </div>
    )

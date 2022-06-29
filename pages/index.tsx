@@ -92,7 +92,7 @@ const projects: Project[] = [
   },
   {
     id: 'blitz',
-    description: '...',
+    description: 'A stylised, modern landing page.',
     url: '/blitz'
   },
 ]
