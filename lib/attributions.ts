@@ -18,6 +18,11 @@ const attributions = {
       link: 'https://dribbble.com/shots/18335013-NFT-Marketplace-Website',
       homepage: 'https://dribbble.com/Suzauddoula_Bappy'
    },
+   'blitz': {
+      name: 'Halo Lab',
+      link: 'https://dribbble.com/shots/18163937-Web-site-design-landing-page-home-page-ui',
+      homepage: 'https://dribbble.com/halolab'
+   },
 }
 
 export default attributions as Record<keyof typeof attributions, Attribution>

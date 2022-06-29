@@ -27,7 +27,7 @@ export default function Avatar(props: Props) {
             height: props.size ?? 60,
             backgroundImage: props.src ? `url("${props.src}")` : undefined
          }}
-         className={`rounded-full flex-shrink-0 cursor-pointer
+         className={`rounded-full flex-shrink-0
             grid place-content-center bg-no-repeat bg-cover bg-center ${props.className}
          `}>{props.children}</div>
    )
