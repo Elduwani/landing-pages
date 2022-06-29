@@ -5,7 +5,7 @@
 
 import MobileMenu from '@components/MobileMenu'
 import attributions from '@lib/attributions'
-import { useInterval, useScreenSize } from '@lib/hooks'
+import { useAttribution, useInterval, useScreenSize } from '@lib/hooks'
 import { randomIndices } from '@lib/index'
 import styles from '@styles/quillex.module.scss'
 import { motion } from 'framer-motion'
@@ -18,7 +18,6 @@ import { useRouter } from 'next/router'
 import path from 'path'
 import { useRef, useState } from 'react'
 
-const attribution = attributions['skillex']
 const links = ['all categories', 'pricing', 'for business', 'search']
 
 interface Props {
@@ -27,6 +26,7 @@ interface Props {
 export default function Quillex(props: Props) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
+   const attribution = useAttribution('skillex')
 
    const palette = [
       'bg-gradient-to-t from-orange-400 to-orange-300',
@@ -87,7 +87,7 @@ export default function Quillex(props: Props) {
                         <p className={styles.headline}>learn.</p>
                         <p className={styles.headline}>grow.</p>
                      </div>
-                     <div className="mt-auto lg:w-[500px] z-10 relative">
+                     <div className="mt-auto lg:w-[500px] z-10 relative space-y-4">
                         <div className="w-full flex h-28 shadow-2xl shadow-slate-500/40">
                            <input
                               type='text'
@@ -98,11 +98,7 @@ export default function Quillex(props: Props) {
                         </div>
                         {
                            //attribution
-                           <Link href={attribution.link} rel="noreferrer">
-                              <a className='text-3xl text-gray-700' target={"_blank"}>
-                                 <span className='text-xs mt-3 text-gray-400'>UI Design by</span> <span className='text-sm'>{attribution.name}</span>
-                              </a>
-                           </Link>
+                           attribution.link
                         }
                      </div>
                   </div>
@@ -219,6 +215,7 @@ function Boxes(props: Props) {
                               layout='fill'
                               className='object-cover top-0 left-0'
                               src={box.src}
+                              alt={'hero image for' + box.title}
                            /> : null
                      }
                      <div className={`relative h-[90%] lg:h-5/6 flex flex-col 

@@ -8,23 +8,21 @@
  * ]
  */
 
-import Head from 'next/head'
-import Link from 'next/link'
-import { RiPlayFill } from 'react-icons/ri'
-import { HiChevronDown } from 'react-icons/hi'
 import MobileMenu from '@components/MobileMenu'
-import { useScreenSize } from '@lib/hooks'
+import { useAttribution, useScreenSize } from '@lib/hooks'
 import styles from '@styles/baloo.module.scss'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
-import attributions from '@lib/attributions'
+import Image from 'next/image'
+import Link from 'next/link'
+import { HiChevronDown } from 'react-icons/hi'
+import { RiPlayFill } from 'react-icons/ri'
 
-const attribution = attributions['jadoo']
 const links = ['destinations', 'hotels', 'flights', 'bookings', 'login']
 
 export default function Baloo() {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
+   const attribution = useAttribution('jadoo')
 
    const additionalMenu = (
       <>
@@ -97,11 +95,7 @@ export default function Baloo() {
                      </div>
                      {
                         //attribution
-                        <Link href={attribution.link} rel="noreferrer">
-                           <a className='text-3xl text-gray-700' target={"_blank"}>
-                              <span className='text-xs mt-3 text-gray-400'>UI Design by</span> <span className='text-sm'>{attribution.name}</span>
-                           </a>
-                        </Link>
+                        attribution.link
                      }
                   </div>
                   <div className="mt-8 lg:mt-0">
@@ -111,6 +105,7 @@ export default function Baloo() {
                         height={800}
                         objectFit='contain'
                         objectPosition='top center'
+                        alt='girl in bikini travelling with suitcase and passport'
                      />
                   </div>
                </div>
@@ -153,6 +148,7 @@ function Box(props: BoxProps) {
                height={100}
                objectFit='contain'
                src={props.src}
+               alt={props.title + " icon"}
             />
             <h3 className='text-lg capitalize font-bold text-gray-700 mb-2'>{props.title}</h3>
             <p className='text-gray-600'>{props.text}</p>

@@ -1,5 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
+import attributions from '@lib/attributions'
+import Link from "next/link";
 
 export default function useMedia<T>(queries: string[], values: T[] | readonly T[], defaultValue: T) {
     const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList[]>()
@@ -115,4 +117,18 @@ export function useClipboard() {
     }
 
     return { handleCopyClick, copied, error }
+}
+
+export function useAttribution(id: keyof typeof attributions, className?: string) {
+    const attribution = attributions[id]
+    return {
+        attribution,
+        link: (
+            <Link href={attribution.link}>
+                <a className={`text-xs block ${className ?? 'text-gray-700'} underline`} target={"_blank"}>
+                    <p className=''>UI Design by {attribution.name}</p>
+                </a>
+            </Link>
+        )
+    }
 }

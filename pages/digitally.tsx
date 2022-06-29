@@ -3,25 +3,23 @@
  * Design reference: https://dribbble.com/shots/18335013-NFT-Marketplace-Website
  */
 
+import Avatar from '@components/Avatar'
+import MobileMenu from '@components/MobileMenu'
+import { useAttribution, useScreenSize } from '@lib/hooks'
+import { getFakeFaces } from '@lib/index'
+import styles from '@styles/beast.module.scss'
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HiPlay } from 'react-icons/hi'
 import { IoIosArrowRoundForward } from 'react-icons/io'
-import Avatar from '@components/Avatar'
-import MobileMenu from '@components/MobileMenu'
-import { getFakeFaces } from '@lib/index'
-import { useScreenSize } from '@lib/hooks'
-import styles from '@styles/beast.module.scss'
-import attributions from '@lib/attributions'
 
 const links = ['marketplace', 'resources', 'community', 'FAQ']
-const attribution = attributions['digitally']
 
 export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
+   const attribution = useAttribution('digitally')
 
    const additionalMenu = (
       <>
@@ -41,7 +39,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                      logo={<Logo />}
                      className="mb-12 py-4"
                      additionalMenu={additionalMenu}
-                     attribution={attribution}
+                     attribution={attribution.attribution}
                      links={links}
                   /> :
                   <header className='h-20 bg-transparent flex items-center justify-between px-4 lg:px-14 mb-16 sticky top-0'>
@@ -105,16 +103,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                            The first NFT marketplace that enables creators to choose
                         </span>
                      </p>
-                     <Link
-                        href='https://dribbble.com/shots/18335013-NFT-Marketplace-Website'
-                        target="_blank"
-                        rel="noreferrer"
-                     >
-                        <a className='text-3xl text-gray-700' target={"_blank"}>
-                           <p className='text-xs mt-3 text-gray-500'>UI Design by</p>
-                           <p className='text-sm'>Suzauddoula Bappy</p>
-                        </a>
-                     </Link>
+                     {attribution.link}
                   </div>
                   <div className="relative flex-1 w-full md:flex-none md:h-[70%] md:absolute md:bottom-0">
                      <Image
@@ -122,6 +111,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                         src={'/hapebeast.png'}
                         className='z-10 object-contain'
                         objectPosition='bottom center'
+                        alt='hapebeast nft of an ape wearing a winter jacket'
                      />
                      <div className="h-[300px] w-[300px] md:h-[420px] md:w-[420px] transform -translate-y-10 md:translate-x-6 mx-auto">
                         <div className={styles.circle}>

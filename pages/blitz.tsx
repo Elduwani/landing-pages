@@ -1,22 +1,21 @@
 import Avatar from "@components/Avatar";
 import MobileMenu from "@components/MobileMenu";
+import { useAttribution, useScreenSize } from "@lib/hooks";
 import { getFakeFaces } from "@lib/index";
-import attributions from "@lib/attributions";
-import { useScreenSize } from "@lib/hooks";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { FaQuoteRight } from "react-icons/fa";
 import { HiChevronDown } from "react-icons/hi";
 import { RiMessage3Fill } from "react-icons/ri";
-import { GetServerSideProps } from "next";
 
-const attribution = attributions['jadoo']
 const links = ['services', 'projects', 'about']
 
 export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
+   const attribution = useAttribution('blitz')
 
    const additionalMenu = (
       <>
@@ -74,7 +73,7 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
 
             <div className="bg-neutral-800">
                <div className="min-h-[550px] grid grid-cols-3 gap-0.5 p-0.5">
-                  <div className="bg-gray-50 col-span-2 rounded-3xl p-8 py-14 flex flex-col justify-between">
+                  <div className="bg-gray-50 col-span-2 rounded-2xl p-8 py-14 flex flex-col justify-between relative">
                      <h1 className={`
                         font-roboto font-bold text-[50px] leading-[50px] 
                         md:text-[80px] md:leading-[80px]
@@ -88,11 +87,23 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                            <RiMessage3Fill />
                         </span>
                      </div>
+                     <div className="absolute h-full w-full max-w-xl top-0 right-0 transform translate-x-1/2 ring">
+                        <div className="relative h-full w-full ring">
+                           <Image
+                              layout="fill"
+                              src="/blitz/hero-image.png"
+                              objectFit="contain"
+                              objectPosition="bottom right"
+                              // link="https://unsplash.com/photos/aoEwuEH7YAs"
+                              alt='man wearing black sweater'
+                           />
+                        </div>
+                     </div>
                   </div>
-                  <div className="bg-gray-50 rounded-3xl"></div>
+                  <div className="bg-gray-50 rounded-2xl"></div>
                </div>
                <div className="grid grid-cols-3 min-h-[300px] gap-0.5 px-0.5">
-                  <div className="bg-gray-200 rounded-t-3xl p-8 flex flex-col justify-between relative">
+                  <div className="bg-gray-200 rounded-t-2xl p-8 flex flex-col justify-between relative">
                      <p className="text-2xl max-w-[230px] text-gray-600">
                         They are very proactive and work to make your product even better.
                      </p>
@@ -101,19 +112,21 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                            src='/blitz/appletv-logo.png'
                            objectFit="contain"
                            objectPosition="left center"
+                           alt="apple tv+ logo"
                            layout="fill"
                         />
                      </div>
                      <FaQuoteRight className="absolute text-xl right-8" />
                   </div>
-                  <div className="bg-gray-50 rounded-t-3xl p-8 flex flex-col justify-between relative">
+                  <div className="bg-gray-50 rounded-t-2xl p-8 flex flex-col justify-between relative">
                      <div className="space-y-3">
                         <p className="text-2xl font-bold">
                            The most experienced, specialised team across the industry.
                         </p>
-                        <p className="text-sm text-gray-600 underline">
-                           Work with us
-                        </p>
+                        {
+                           //attribution
+                           attribution.link
+                        }
                      </div>
                      <div className="relative h-8 w-full max-w-xs flex items-center space-x-4">
                         <div className="flex m-1">
@@ -136,7 +149,7 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                         </Link>
                      </div>
                   </div>
-                  <div className="bg-gray-50 rounded-t-3xl"></div>
+                  <div className="bg-gray-50 rounded-t-2xl"></div>
                </div>
             </div>
          </main>
