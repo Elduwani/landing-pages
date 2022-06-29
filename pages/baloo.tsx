@@ -12,6 +12,7 @@ import MobileMenu from '@components/MobileMenu'
 import { useAttribution, useScreenSize } from '@lib/hooks'
 import styles from '@styles/baloo.module.scss'
 import { motion } from 'framer-motion'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HiChevronDown } from 'react-icons/hi'
@@ -38,6 +39,9 @@ export default function Baloo() {
 
    return (
       <div className='h-full overflow-hidden'>
+         <Head>
+            <title>Best destinations around the world</title>
+         </Head>
          <main className={styles.main}>
             {
                isMobile ?

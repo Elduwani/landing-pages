@@ -9,6 +9,7 @@ import { useAttribution, useScreenSize } from '@lib/hooks'
 import { getFakeFaces } from '@lib/index'
 import styles from '@styles/beast.module.scss'
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HiPlay } from 'react-icons/hi'
@@ -32,6 +33,9 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
 
    return (
       <div className='h-full overflow-hidden'>
+         <Head>
+            <title>Digitally</title>
+         </Head>
          <main className='noise-bg min-h-screen flex flex-col bg-gradient-to-br from-teal-100 to-blue-200 px-6'>
             {
                isMobile ?
