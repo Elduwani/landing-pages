@@ -7,8 +7,8 @@ import Avatar from '@components/Avatar'
 import MobileMenu from '@components/MobileMenu'
 import { useAttribution, useScreenSize } from '@lib/hooks'
 import { getFakeFaces } from '@lib/index'
+import heroImage from "@public/hapebeast.png"
 import styles from '@styles/beast.module.scss'
-import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,10 +17,11 @@ import { IoIosArrowRoundForward } from 'react-icons/io'
 
 const links = ['marketplace', 'resources', 'community', 'FAQ']
 
-export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
+export default function Digitally() {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
    const attribution = useAttribution('digitally')
+   const avatars = getFakeFaces(2)
 
    const additionalMenu = (
       <>
@@ -89,7 +90,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                         {
                            avatars.map(av =>
                               <Avatar
-                                 key={av.filename}
+                                 key={av.image_url}
                                  src={av.image_url}
                                  size={isMobile ? 40 : undefined}
                                  className='bg-teal-200 md:ring-[6px] ring-4 -mx-2 ring-gray-100'
@@ -112,7 +113,7 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
                   <div className="relative flex-1 w-full md:flex-none md:h-[70%] md:absolute md:bottom-0">
                      <Image
                         layout='fill'
-                        src={'/hapebeast.png'}
+                        src={heroImage}
                         className='z-10 object-contain'
                         objectPosition='bottom center'
                         alt='hapebeast nft of an ape wearing a winter jacket'
@@ -132,15 +133,6 @@ export default function Digitally({ avatars }: { avatars: FakeFace[] }) {
          </main>
       </div>
    )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-   const avatars = await getFakeFaces(2)
-   return {
-      props: {
-         avatars
-      },
-   }
 }
 
 function Logo() {

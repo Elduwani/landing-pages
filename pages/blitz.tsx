@@ -2,21 +2,23 @@ import Avatar from "@components/Avatar";
 import MobileMenu from "@components/MobileMenu";
 import { useAttribution, useScreenSize } from "@lib/hooks";
 import { getFakeFaces } from "@lib/index";
-import { GetServerSideProps } from "next";
+import image3d from "@public/blitz/3d.jpg";
+import imageHero from "@public/blitz/hero-image.png";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { BsArrowUpRight } from "react-icons/bs";
 import { FaQuoteRight } from "react-icons/fa";
 import { HiChevronDown } from "react-icons/hi";
 import { RiMessage3Fill } from "react-icons/ri";
-import { BsArrowUpRight } from "react-icons/bs";
 
 const links = ['services', 'projects', 'about']
 
-export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
+export default function Blitz() {
    const screensize = useScreenSize()
    const isMobile = screensize.match(/xs|sm|md/i)
    const attribution = useAttribution('blitz')
+   const avatars = getFakeFaces(3)
 
    const additionalMenu = (
       <Link href='#'>
@@ -96,11 +98,12 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                         </div>
                         <Image
                            layout="fill"
-                           src="/blitz/hero-image.png"
+                           src={imageHero}
                            objectFit="contain"
+                           placeholder="blur"
                            // link="https://unsplash.com/photos/aoEwuEH7YAs"
                            alt='man wearing black sweater'
-                           className="ring lg:object-right-bottom"
+                           className="lg:object-right-bottom"
                         />
                      </div>
                      <Image
@@ -141,7 +144,7 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                            {
                               avatars.map(av =>
                                  <Avatar
-                                    key={av.filename}
+                                    key={av.image_url}
                                     src={av.image_url}
                                     size={40}
                                     className='bg-green-200 ring-2 -mx-1.5 ring-white'
@@ -164,12 +167,13 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
                         {`Probably the best virtual experiences built on the Metaverse.`}
                      </p>
                      <Image
-                        src='/blitz/3d.jpg'
+                        src={image3d}
                         objectFit="cover"
                         objectPosition="center"
                         alt="3d render of girl with floating cars"
-                        layout="fill"
                         className="opacity-10"
+                        placeholder="blur"
+                        layout="fill"
                      />
                   </Box>
                </div>
@@ -177,15 +181,6 @@ export default function Blitz({ avatars }: { avatars: FakeFace[] }) {
          </main>
       </div>
    )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-   const avatars = await getFakeFaces(3)
-   return {
-      props: {
-         avatars
-      },
-   }
 }
 
 function Logo() {

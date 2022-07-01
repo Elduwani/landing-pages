@@ -17,6 +17,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HiChevronDown } from 'react-icons/hi'
 import { RiPlayFill } from 'react-icons/ri'
+import imageHero from "@public/baloo/hero.png"
 
 const links = ['destinations', 'hotels', 'flights', 'bookings', 'login']
 
@@ -104,9 +105,10 @@ export default function Baloo() {
                   </div>
                   <div className="mt-8 lg:mt-0">
                      <Image
-                        src="/baloo/hero.png"
+                        src={imageHero}
                         width={600}
                         height={800}
+                        placeholder="blur"
                         objectFit='contain'
                         objectPosition='top center'
                         alt='girl in bikini travelling with suitcase and passport'

@@ -1,29 +1,24 @@
-import axios from 'axios'
-import fakeFaces from './fakeFaces'
 
-export async function getFakeFaces(count: number): Promise<FakeFace[]> {
-   const url = process.env.NODE_ENV === 'development' ? 'https://fakeface.rest/face/json' : 'https://fakeface.rest/thumb/view'
-   const arr: FakeFace[] = new Array(count)
+export function getFakeFaces(count: number): FakeFace[] {
+   const url = 'https://fakeface.rest/thumb/view/'
 
-   try {
-      for (let i = 0; i < arr.length; i++) {
-         const data = await axios.get(url)
-         arr[i] = data.data
-         console.log('DONE', i);
-      }
-   } catch (e: any) {
-      //Don't return undefined
-      console.log(e.message)
-      const faces = Array.from({ length: count }, () => {
-         const i = Math.round(Math.random() * count)
-         return fakeFaces[i]
-      })
-
-      return faces
+   function randomCharacters() {
+      return Array.from({ length: 15 },
+         () => String.fromCharCode(getRandomInt(65, 122))
+      ).join("")
    }
 
+   const list: FakeFace[] = Array.from({ length: count }, () => {
+      const gender = Math.random() > 0.5 ? 'male' : 'female'
+      const image_url = url + `${randomCharacters()}?gender=${gender}`
+      return {
+         gender,
+         image_url,
+         source: url
+      }
+   })
 
-   return arr
+   return list
 }
 
 export function randomIndices(count: number, minValue = 0): number[] {
