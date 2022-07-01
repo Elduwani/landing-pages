@@ -100,7 +100,6 @@ export default function Blitz() {
                            layout="fill"
                            src={imageHero}
                            objectFit="contain"
-                           placeholder="blur"
                            // link="https://unsplash.com/photos/aoEwuEH7YAs"
                            alt='man wearing black sweater'
                            className="lg:object-right-bottom"

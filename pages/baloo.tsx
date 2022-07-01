@@ -108,7 +108,6 @@ export default function Baloo() {
                         src={imageHero}
                         width={600}
                         height={800}
-                        placeholder="blur"
                         objectFit='contain'
                         objectPosition='top center'
                         alt='girl in bikini travelling with suitcase and passport'
