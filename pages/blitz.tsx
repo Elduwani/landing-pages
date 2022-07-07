@@ -2,8 +2,8 @@ import Avatar from "@components/Avatar";
 import MobileMenu from "@components/MobileMenu";
 import { useAttribution, useScreenSize } from "@lib/hooks";
 import { getFakeFaces } from "@lib/index";
-import image3d from "@public/blitz/3d.jpg";
 import imageHero from "@public/blitz/hero-image.png";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,10 @@ import { BsArrowUpRight } from "react-icons/bs";
 import { FaQuoteRight } from "react-icons/fa";
 import { HiChevronDown } from "react-icons/hi";
 import { RiMessage3Fill } from "react-icons/ri";
+
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+   ssr: false,
+});
 
 const links = ['services', 'projects', 'about']
 
@@ -158,22 +162,16 @@ export default function Blitz() {
                         </Link>
                      </div>
                   </Box>
-                  <Box className="bg-gray-50 relative noise-bg overflow-hidden bg-gradient-to-tr from-pink-400 to-orange-200">
-                     <h1 className="text-[80px] leading-none font-bold z-10 p-2 rounded-full">
+                  <Box className="relative overflow-hidden bg-[#321B6E]">
+                     <h1 className="text-[80px] leading-none font-bold z-10 p-2 rounded-full text-white">
                         3D*
                      </h1>
-                     <p className="text-2xl">
-                        {`Probably the best virtual experiences built on the Metaverse.`}
+                     <p className="text-2xl relative z-10 text-white">
+                        {`The best virtual experiences built on the Metaverse.`}
                      </p>
-                     <Image
-                        src={image3d}
-                        objectFit="cover"
-                        objectPosition="center"
-                        alt="3d render of girl with floating cars"
-                        className="opacity-10"
-                        placeholder="blur"
-                        layout="fill"
-                     />
+                     <div className="absolute h-full w-full top-0 left-0">
+                        <Spline scene="https://prod.spline.design/ys5ESg5HELIKmBxe/scene.splinecode" />
+                     </div>
                   </Box>
                </div>
             </div>
