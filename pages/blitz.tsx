@@ -163,15 +163,19 @@ export default function Blitz() {
                      </div>
                   </Box>
                   <Box className="relative overflow-hidden bg-[#321B6E]">
-                     <h1 className="text-[80px] leading-none font-bold z-10 p-2 rounded-full text-white">
-                        3D*
-                     </h1>
-                     <p className="text-2xl relative z-10 text-white">
-                        {`The best virtual experiences built on the Metaverse.`}
-                     </p>
-                     <div className="absolute h-full w-full top-0 left-0">
-                        <Spline scene="https://prod.spline.design/ys5ESg5HELIKmBxe/scene.splinecode" />
-                     </div>
+                     <h1 className="text-[80px] leading-none font-bold z-10 p-2 rounded-full text-white">3D*</h1>
+                     {
+                        isMobile ?
+                           <Image
+                              layout="fill"
+                              src='/blitz/3d.jpg'
+                              objectFit="cover"
+                              alt='3d icosahedron'
+                           /> :
+                           <div className="absolute h-full w-full top-0 left-0">
+                              <Spline scene="https://prod.spline.design/ys5ESg5HELIKmBxe/scene.splinecode" />
+                           </div>
+                     }
                   </Box>
                </div>
             </div>
